@@ -1,0 +1,29 @@
+{
+  "name": "nodejs-scaffolding",
+  "version": "1.1.0",
+  "scripts": {
+    "prepare": "husky",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "eslint src/**",
+    "prettier": "prettier . --write",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node dist/main.js",
+    "start:dev": "tsx watch src/main.ts"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@eslint/js": "^9.20.0",
+    "@tsconfig/recommended": "^1.0.8",
+    "eslint": "^9.20.0",
+    "eslint-config-prettier": "^10.0.1",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
+  }
+}
