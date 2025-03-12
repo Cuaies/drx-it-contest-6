@@ -1,3 +1,15 @@
+packages:core:
+  - changed-files:
+      - any-glob-to-any-file: packages/core/**/*
+
+packages:server:
+  - changed-files:
+      - any-glob-to-any-file: packages/server/**/*
+
+packages:client:
+  - changed-files:
+      - any-glob-to-any-file: packages/client/**/*
+
 enhancement:
   - head-branch: ["^feat", "feat"]
 
