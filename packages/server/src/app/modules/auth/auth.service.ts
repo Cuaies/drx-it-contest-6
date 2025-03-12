@@ -88,6 +88,5 @@ export class AuthService {
 
   logout(response: Response) {
     response.clearCookie(JWT_COOKIE);
-    response.redirect('/');
   }
 }

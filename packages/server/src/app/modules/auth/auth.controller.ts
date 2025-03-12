@@ -2,9 +2,9 @@ import {
   Controller,
   Post,
   Body,
-  HttpCode,
   HttpStatus,
   Res,
+  Redirect,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
@@ -33,7 +33,7 @@ export class AuthController {
   }
 
   @Post(Routes.Users.Logout)
-  @HttpCode(HttpStatus.OK)
+  @Redirect('/', HttpStatus.OK)
   logout(@Res({ passthrough: true }) response: Response) {
     return this.authService.logout(response);
   }
