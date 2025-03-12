@@ -7,15 +7,15 @@ export const Routes = {
     Login: '/login',
     Logout: '/logout',
     Roles: {
-      GET: `${Params.UserId}/roles`,
-      POST: `${Params.UserId}/roles/${Params.RoleId}`,
+      GET: `:${Params.UserId}/roles`,
+      POST: `:${Params.UserId}/roles/:${Params.RoleId}`,
     },
   },
   Roles: {
     Base: '/roles',
     GET: '',
     Users: {
-      GET: `${Params.RoleId}/users`,
+      GET: `:${Params.RoleId}/users`,
     },
   },
 } as const;

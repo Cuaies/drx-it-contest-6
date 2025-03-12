@@ -1,4 +1,4 @@
 export const enum Params {
-  UserId = ':userId',
-  RoleId = ':roleId',
+  UserId = 'userId',
+  RoleId = 'roleId',
 }
