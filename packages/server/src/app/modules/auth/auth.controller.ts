@@ -5,12 +5,15 @@ import {
   HttpStatus,
   Res,
   Redirect,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
 // skipcq: JS-0257
 import { Response } from 'express';
 import { Routes } from '../../../core/constants';
+import { Params } from '../../../ts/enums';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
@@ -36,5 +39,18 @@ export class AuthController {
   @Redirect('/', HttpStatus.OK)
   logout(@Res({ passthrough: true }) response: Response) {
     return this.authService.logout(response);
+  }
+
+  @Get(Routes.Users.Roles.GET)
+  getUserRoles(@Param(Params.UserId) userId: number) {
+    return this.authService.getUserRoles(userId);
+  }
+
+  @Post(Routes.Users.Roles.POST)
+  assignRoleToUser(
+    @Param(Params.UserId) userId: number,
+    @Param(Params.RoleId) roleId: number,
+  ) {
+    return this.authService.assignRoleToUser(userId, roleId);
   }
 }

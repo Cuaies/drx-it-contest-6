@@ -1,16 +1,22 @@
 import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { hashPassword } from '../../../core/utils/hash';
 import { compare } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from './models/user.model';
 import { UniqueConstraintError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../core/messages';
 // skipcq: JS-0257
 import { Response } from 'express';
 import { JWT_COOKIE } from '../../../core/constants';
+import { User } from './models';
+import { UserRole } from '../../../core/relationships';
+import { Role } from '../roles/models';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
@@ -22,6 +28,10 @@ export class AuthService {
     private jwtService: JwtService,
     @InjectModel(User)
     private userModel: typeof User,
+    @InjectModel(Role)
+    private roleModel: typeof Role,
+    @InjectModel(UserRole)
+    private userRoleModel: typeof UserRole,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -88,5 +98,30 @@ export class AuthService {
 
   logout(response: Response) {
     response.clearCookie(JWT_COOKIE);
+  }
+
+  async getUserRoles(userId: number) {
+    const user = await this.userModel.findByPk(userId, {
+      include: [
+        { model: Role, attributes: ['roleName'], through: { attributes: [] } },
+      ],
+    });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user.roles;
+  }
+
+  async assignRoleToUser(userId: number, roleId: number) {
+    const user = await User.findByPk(userId);
+    const role = await Role.findByPk(roleId);
+
+    if (!user || !role) {
+      throw new NotFoundException();
+    }
+
+    await user.$add('roles', role);
   }
 }

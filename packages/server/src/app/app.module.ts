@@ -11,7 +11,6 @@ import { AuthModule, RolesModule } from './modules';
       dialect: 'sqlite',
       storage: ':memory:',
       autoLoadModels: true,
-      synchronize: true,
     }),
     AuthModule,
     RolesModule,
