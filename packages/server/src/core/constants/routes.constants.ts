@@ -5,4 +5,8 @@ export const Routes = {
     Login: '/login',
     Logout: '/logout',
   },
+  Roles: {
+    Base: '/roles',
+    GET: '',
+  },
 } as const;

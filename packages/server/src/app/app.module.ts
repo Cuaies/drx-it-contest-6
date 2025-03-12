@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { authConfiguration, miscConfiguration } from './config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { AuthModule, RolesModule } from './modules';
 
 @Module({
   imports: [
@@ -14,6 +14,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
       synchronize: true,
     }),
     AuthModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [],
