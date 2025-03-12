@@ -1,6 +1,4 @@
 {
-  "compilerOptions": {
-    "outDir": "./dist/"
-  },
-  "extends": "@tsconfig/recommended/tsconfig.json"
+  "files": [],
+  "references": [{ "path": "packages/server" }]
 }
