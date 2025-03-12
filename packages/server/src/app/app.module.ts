@@ -1,16 +1,24 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { authConfiguration, miscConfiguration } from './config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import {
+  authConfiguration,
+  dbConfiguration,
+  miscConfiguration,
+} from './config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AuthModule, RolesModule } from './modules';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [miscConfiguration, authConfiguration] }),
-    SequelizeModule.forRoot({
-      dialect: 'sqlite',
-      storage: ':memory:',
-      autoLoadModels: true,
+    ConfigModule.forRoot({
+      load: [miscConfiguration, authConfiguration, dbConfiguration],
+    }),
+    SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get('db'),
+      }),
+      inject: [ConfigService],
     }),
     AuthModule,
     RolesModule,
