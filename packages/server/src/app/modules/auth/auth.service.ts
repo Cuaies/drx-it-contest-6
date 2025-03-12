@@ -3,13 +3,17 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { hashPassword } from '../../../core/utils/hash';
 import { compare } from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 
 @Injectable()
 export class AuthService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    private jwtService: JwtService,
+  ) {}
 
   async register(registerDto: RegisterDto) {
     const hashedPassword = hashPassword(registerDto.password);
@@ -37,7 +41,24 @@ export class AuthService {
       throw new BadRequestException();
     }
 
-    const token = null; // TODO: generate token
+    const token = await this.signToken(user);
+  }
+
+  /**
+   * Generates a JWT token with the given user data payload.
+   * @param payload The user data payload to sign. // TODO: change payload data
+   * @returns The signed JWT token.
+   */
+  private async signToken(payload: any): Promise<string> {
+    const token = await this.jwtService.signAsync(
+      { payload },
+      {
+        secret: this.configService.get('auth.jwt_secret'),
+        expiresIn: this.configService.get('auth.jwt_expiration'),
+      },
+    );
+
+    return token;
   }
 
   logout() {
