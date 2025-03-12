@@ -8,6 +8,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import { User } from './models/user.model';
 import { UniqueConstraintError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../core/messages';
+// skipcq: JS-0257
+import { Response } from 'express';
+import { JWT_COOKIE } from '../../../core/constants';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
@@ -44,7 +47,7 @@ export class AuthService {
     }
   }
 
-  async login({ email, password }: LoginDto) {
+  async login(response: Response, { email, password }: LoginDto) {
     const user = (await this.userModel.findOne({ where: { email } }))
       ?.dataValues;
 
@@ -58,6 +61,12 @@ export class AuthService {
     }
 
     const token = await this.signToken(user);
+    response.cookie(JWT_COOKIE, token, {
+      httpOnly: true,
+      secure: false, // TODO: enable in prod
+      sameSite: 'none',
+      maxAge: 24 * 60 * 60 * 1000,
+    });
   }
 
   /**
@@ -77,7 +86,8 @@ export class AuthService {
     return token;
   }
 
-  logout() {
-    // TODO: implement logout
+  logout(response: Response) {
+    response.clearCookie(JWT_COOKIE);
+    response.redirect('/');
   }
 }
