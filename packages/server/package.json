@@ -22,6 +22,7 @@
   "dependencies": {
     "@drx-it-contest-6/core": "^1.0.0",
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^4.0.1",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "bcrypt": "^5.1.1",

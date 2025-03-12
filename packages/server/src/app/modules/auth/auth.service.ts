@@ -2,13 +2,14 @@ import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { hashPassword } from '../../../core/utils/hash';
 import { compare } from 'bcrypt';
+import { ConfigService } from '@nestjs/config';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 
 @Injectable()
 export class AuthService {
-  constructor() {}
+  constructor(private configService: ConfigService) {}
 
   async register(registerDto: RegisterDto) {
     const hashedPassword = hashPassword(registerDto.password);
