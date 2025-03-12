@@ -1,12 +1,12 @@
-packages:core:
+package:core:
   - changed-files:
       - any-glob-to-any-file: packages/core/**/*
 
-packages:server:
+package:server:
   - changed-files:
       - any-glob-to-any-file: packages/server/**/*
 
-packages:client:
+package:client:
   - changed-files:
       - any-glob-to-any-file: packages/client/**/*
 
