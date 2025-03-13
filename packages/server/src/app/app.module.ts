@@ -7,6 +7,7 @@ import {
 } from './config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule, RolesModule, StagesModule } from './modules';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { UsersModule, RolesModule, StagesModule } from './modules';
     UsersModule,
     RolesModule,
     StagesModule,
+    ProductsModule,
   ],
   controllers: [],
   providers: [],

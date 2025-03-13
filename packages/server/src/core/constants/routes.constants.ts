@@ -22,4 +22,14 @@ export const Routes = {
     Base: '/stages',
     GET: '',
   },
+  Products: {
+    Base: '/products',
+    GET: '',
+    POST: '',
+    Product: {
+      GET: `:${Params.ProductId}`,
+      PATCH: `:${Params.ProductId}`,
+      DELETE: `:${Params.ProductId}`,
+    },
+  },
 } as const;
