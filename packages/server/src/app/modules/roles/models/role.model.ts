@@ -14,7 +14,7 @@ import { UserRole } from '../../../../core/relationships';
 import { SequelizeScopeError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../../core/messages';
 
-@Table
+@Table({ timestamps: false })
 export class Role extends Model {
   @Unique
   @Column({
