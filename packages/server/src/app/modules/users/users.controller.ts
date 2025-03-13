@@ -8,7 +8,7 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { UsersService } from './auth.service';
+import { UsersService } from './users.service';
 import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
 // skipcq: JS-0257
 import { Response } from 'express';

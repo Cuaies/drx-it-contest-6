@@ -1,5 +1,5 @@
 import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
-import { User } from '../../app/modules/auth/models';
+import { User } from '../../app/modules/users/models';
 import { Role } from '../../app/modules/roles/models';
 
 @Table

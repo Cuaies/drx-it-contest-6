@@ -9,7 +9,7 @@ import {
   BeforeDestroy,
 } from 'sequelize-typescript';
 import { RolesEnum } from '../../../../ts/enums';
-import { User } from '../../auth/models';
+import { User } from '../../users/models';
 import { UserRole } from '../../../../core/relationships';
 import { SequelizeScopeError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../../core/messages';

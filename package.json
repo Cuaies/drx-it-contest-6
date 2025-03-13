@@ -2,7 +2,9 @@
   "name": "drx-it-contest-6",
   "version": "1.0.0",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "npm run build -w packages/core && npm run build -w packages/server",
+    "ci": "npm run build && npm run test:e2e -w packages/server"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",

@@ -47,7 +47,7 @@ export class UsersService {
       //
       // TODO: assign user role
       //
-      const { passwordHash, ...u } = user;
+      const { passwordHash, ...u } = user; // eslint-disable-line
       return u;
     } catch (e) {
       if (e instanceof UniqueConstraintError) {
