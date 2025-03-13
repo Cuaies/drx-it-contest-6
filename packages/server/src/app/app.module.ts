@@ -11,6 +11,7 @@ import {
   RolesModule,
   StagesModule,
   ProductsModule,
+  MaterialsModule,
 } from './modules';
 
 @Module({
@@ -29,9 +30,8 @@ import {
     RolesModule,
     StagesModule,
     ProductsModule,
+    MaterialsModule,
   ],
-  controllers: [],
-  providers: [],
 })
 // skipcq: JS-0327
 export class AppModule {}

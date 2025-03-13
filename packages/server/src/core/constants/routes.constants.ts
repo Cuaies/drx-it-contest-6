@@ -32,4 +32,13 @@ export const Routes = {
       DELETE: `:${Params.ProductId}`,
     },
   },
+  Materials: {
+    Base: '/materials',
+    GET: '',
+    POST: '',
+    Material: {
+      GET: `:${Params.MaterialId}`,
+      DELETE: `:${Params.MaterialId}`,
+    },
+  },
 } as const;

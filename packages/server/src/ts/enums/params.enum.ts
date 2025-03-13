@@ -3,4 +3,5 @@ export const enum Params {
   RoleId = 'roleId',
   StageId = 'stageId',
   ProductId = 'productId',
+  MaterialId = 'materialId',
 }
