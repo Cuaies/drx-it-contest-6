@@ -2,7 +2,7 @@ import { Params } from '../../ts/enums';
 
 export const Routes = {
   Users: {
-    Base: '/auth', // TODO: fix
+    Base: '/users',
     Register: '/register',
     Login: '/login',
     Logout: '/logout',

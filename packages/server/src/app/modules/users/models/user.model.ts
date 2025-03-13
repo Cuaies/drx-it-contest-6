@@ -8,8 +8,6 @@ import {
 import { UserRole } from '../../../../core/relationships';
 import { Role } from '../../roles/models';
 
-// TODO: move model to user's domain
-
 @Table
 export class User extends Model {
   @Unique

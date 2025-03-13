@@ -10,6 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "start": "nest start",
+    "prestart:dev": "npm run docker:dev",
     "start:dev": "dotenvx run -- nest start --watch",
     "start:debug": "dotenvx run -- nest start --debug --watch",
     "prestart:prod": "npm run build",
