@@ -7,6 +7,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from './models';
 import { UserRole } from '../../../core/relationships';
 import { Role } from '../roles/models';
+import { JwtAtStrategy } from './strategies';
 
 @Module({
   imports: [
@@ -15,6 +16,6 @@ import { Role } from '../roles/models';
     SequelizeModule.forFeature([User, Role, UserRole]),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtAtStrategy],
 })
 export class AuthModule {}

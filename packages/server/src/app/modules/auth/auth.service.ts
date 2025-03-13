@@ -13,7 +13,7 @@ import { UniqueConstraintError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../core/messages';
 // skipcq: JS-0257
 import { Response } from 'express';
-import { JWT_COOKIE } from '../../../core/constants';
+import { JWT_AT_COOKIE } from '../../../core/constants';
 import { User } from './models';
 import { UserRole } from '../../../core/relationships';
 import { Role } from '../roles/models';
@@ -71,12 +71,11 @@ export class AuthService {
     }
 
     const token = await this.signToken(user);
-    response.cookie(JWT_COOKIE, token, {
-      httpOnly: true,
-      secure: false, // TODO: enable in prod
-      sameSite: 'none',
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    response.cookie(
+      JWT_AT_COOKIE,
+      token,
+      this.configService.get('auth.jwt_at'),
+    );
   }
 
   /**
@@ -97,7 +96,7 @@ export class AuthService {
   }
 
   logout(response: Response) {
-    response.clearCookie(JWT_COOKIE);
+    response.clearCookie(JWT_AT_COOKIE);
   }
 
   async getUserRoles(userId: number) {
