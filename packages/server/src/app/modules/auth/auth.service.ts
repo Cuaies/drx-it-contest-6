@@ -22,7 +22,7 @@ export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 
 @Injectable()
-export class AuthService {
+export class UsersService {
   constructor(
     private configService: ConfigService,
     private jwtService: JwtService,

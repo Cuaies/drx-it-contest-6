@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { UsersController } from './auth.controller';
+import { UsersService } from './auth.service';
 import { RegisterDto, LoginDto } from './auth.controller';
 import { faker } from '@faker-js/faker';
 import { HttpStatus } from '@nestjs/common';
@@ -24,8 +24,8 @@ const createRandomLoginPayload = (): LoginDto => ({
 });
 
 describe('Auth [Controller]', () => {
-  let authController: AuthController;
-  let authService: AuthService;
+  let authController: UsersController;
+  let authService: UsersService;
 
   const mockAuthService = {
     register: jest.fn(),
@@ -35,12 +35,12 @@ describe('Auth [Controller]', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [AuthController],
-      providers: [{ provide: AuthService, useValue: mockAuthService }],
+      controllers: [UsersController],
+      providers: [{ provide: UsersService, useValue: mockAuthService }],
     }).compile();
 
-    authController = module.get<AuthController>(AuthController);
-    authService = module.get<AuthService>(AuthService);
+    authController = module.get<UsersController>(UsersController);
+    authService = module.get<UsersService>(UsersService);
   });
 
   afterEach(() => {

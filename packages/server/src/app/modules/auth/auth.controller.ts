@@ -8,7 +8,7 @@ import {
   Get,
   Param,
 } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { UsersService } from './auth.service';
 import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
 // skipcq: JS-0257
 import { Response } from 'express';
@@ -19,12 +19,12 @@ export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 
 @Controller(Routes.Users.Base)
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
 
   @Post(Routes.Users.Register)
   register(@Body() registerDto: RegisterDto) {
-    return this.authService.register(registerDto);
+    return this.usersService.register(registerDto);
   }
 
   @Post(Routes.Users.Login)
@@ -32,18 +32,18 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
     @Body() loginDto: LoginDto,
   ) {
-    return this.authService.login(response, loginDto);
+    return this.usersService.login(response, loginDto);
   }
 
   @Post(Routes.Users.Logout)
   @Redirect('/', HttpStatus.OK)
   logout(@Res({ passthrough: true }) response: Response) {
-    return this.authService.logout(response);
+    return this.usersService.logout(response);
   }
 
   @Get(Routes.Users.Roles.GET)
   getUserRoles(@Param(Params.UserId) userId: number) {
-    return this.authService.getUserRoles(userId);
+    return this.usersService.getUserRoles(userId);
   }
 
   @Post(Routes.Users.Roles.POST)
@@ -51,6 +51,6 @@ export class AuthController {
     @Param(Params.UserId) userId: number,
     @Param(Params.RoleId) roleId: number,
   ) {
-    return this.authService.assignRoleToUser(userId, roleId);
+    return this.usersService.assignRoleToUser(userId, roleId);
   }
 }

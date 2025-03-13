@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import { AuthModule } from '../src/app/modules';
+import { UsersModule } from '../src/app/modules';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { dbConfiguration } from '../src/app/config';
@@ -12,7 +12,7 @@ describe('Users', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
-        AuthModule,
+        UsersModule,
         ConfigModule.forRoot({
           load: [dbConfiguration],
         }),

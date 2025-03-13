@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { UsersService } from './auth.service';
+import { UsersController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -15,7 +15,7 @@ import { JwtAtStrategy } from './strategies';
     JwtModule.register({}),
     SequelizeModule.forFeature([User, Role, UserRole]),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtAtStrategy],
+  controllers: [UsersController],
+  providers: [UsersService, JwtAtStrategy],
 })
-export class AuthModule {}
+export class UsersModule {}
