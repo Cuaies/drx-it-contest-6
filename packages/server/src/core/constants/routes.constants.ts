@@ -48,6 +48,10 @@ export const Routes = {
     BOM: {
       GET: `:${Params.BOMId}`,
       DELETE: `:${Params.BOMId}`,
+      MATERIALS: {
+        GET: `:${Params.BOMId}/materials`,
+        POST: `:${Params.BOMId}/materials`,
+      },
     },
   },
 } as const;

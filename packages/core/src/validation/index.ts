@@ -14,3 +14,4 @@ export * from "./dto/materials/create.dto";
 
 // BOM
 export * from "./dto/bom/create.dto";
+export * from "./dto/bom/materialCreate.dto";
