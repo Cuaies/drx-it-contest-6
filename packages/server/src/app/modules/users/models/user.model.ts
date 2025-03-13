@@ -8,7 +8,7 @@ import {
 import { UserRole } from '../../../../core/relationships';
 import { Role } from '../../roles/models';
 
-@Table
+@Table({ paranoid: true, timestamps: true })
 export class User extends Model {
   @Unique
   @Column
