@@ -52,7 +52,10 @@ export class ProductsController {
 
   @Delete(Routes.Products.Product.DELETE)
   @HttpCode(HttpStatus.NO_CONTENT)
-  deleteProduct(@Param(Params.ProductId) id: string) {
-    return this.productsService.deleteProduct(+id);
+  deleteProduct(
+    @Res({ passthrough: true }) res: Response,
+    @Param(Params.ProductId) id: string,
+  ) {
+    return this.productsService.deleteProduct(res, +id);
   }
 }

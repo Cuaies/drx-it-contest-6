@@ -57,7 +57,15 @@ export class ProductsService {
     return product.update({ ...productUpdateDto });
   }
 
-  async deleteProduct(productId: number) {
-    await this.productModel.destroy({ where: { id: productId } });
+  async deleteProduct(res: Response, productId: number) {
+    const deleted = await this.productModel.destroy({
+      where: { [Product.primaryKeyAttribute]: productId },
+    });
+
+    if (deleted) {
+      res.status(HttpStatus.OK);
+    } else {
+      res.status(HttpStatus.NOT_FOUND);
+    }
   }
 }
