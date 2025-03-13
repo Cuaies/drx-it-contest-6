@@ -19,7 +19,7 @@ export class RolesService {
 
   async getRoleUsers(roleId: number) {
     const role = await this.roleModel.findByPk(roleId, {
-      include: [{ model: User }],
+      include: [{ model: User, through: { attributes: [] } }],
     });
 
     if (!role) {
