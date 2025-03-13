@@ -6,7 +6,7 @@ import {
   miscConfiguration,
 } from './config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule, RolesModule } from './modules';
+import { UsersModule, RolesModule, StagesModule } from './modules';
 
 @Module({
   imports: [
@@ -22,6 +22,7 @@ import { UsersModule, RolesModule } from './modules';
     }),
     UsersModule,
     RolesModule,
+    StagesModule,
   ],
   controllers: [],
   providers: [],

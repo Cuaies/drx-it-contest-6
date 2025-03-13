@@ -18,4 +18,8 @@ export const Routes = {
       GET: `:${Params.RoleId}/users`,
     },
   },
+  Stages: {
+    Base: '/stages',
+    GET: '',
+  },
 } as const;
