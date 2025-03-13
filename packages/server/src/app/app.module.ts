@@ -6,8 +6,12 @@ import {
   miscConfiguration,
 } from './config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { UsersModule, RolesModule, StagesModule } from './modules';
-import { ProductsModule } from './modules/products/products.module';
+import {
+  UsersModule,
+  RolesModule,
+  StagesModule,
+  ProductsModule,
+} from './modules';
 
 @Module({
   imports: [
