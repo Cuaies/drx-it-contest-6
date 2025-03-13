@@ -11,3 +11,6 @@ export * from "./dto/products/create.dto";
 
 // Materials
 export * from "./dto/materials/create.dto";
+
+// BOM
+export * from "./dto/bom/create.dto";

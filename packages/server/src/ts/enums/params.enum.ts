@@ -4,4 +4,5 @@ export const enum Params {
   StageId = 'stageId',
   ProductId = 'productId',
   MaterialId = 'materialId',
+  BOMId = 'bomId',
 }
