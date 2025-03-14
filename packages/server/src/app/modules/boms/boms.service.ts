@@ -31,8 +31,8 @@ export class BomsService {
     return bom;
   }
 
-  async getBom(BomId: number) {
-    const bom = (await this.BomModel.findByPk(BomId))?.dataValues;
+  async getBom(bomId: number) {
+    const bom = (await this.BomModel.findByPk(bomId))?.dataValues;
 
     if (!bom) {
       throw new NotFoundException();
@@ -41,10 +41,10 @@ export class BomsService {
     return bom;
   }
 
-  async deleteBom(res: Response, BomId: number) {
+  async deleteBom(res: Response, bomId: number) {
     const deleted = await this.BomModel.destroy({
       where: {
-        [Bom.primaryKeyAttribute]: BomId,
+        [Bom.primaryKeyAttribute]: bomId,
       },
     });
 
@@ -55,9 +55,9 @@ export class BomsService {
     }
   }
 
-  async getBomMaterials(BomId: number) {
+  async getBomMaterials(bomId: number) {
     const materials = await this.BomMaterialModel.findAll({
-      where: { [Bom.primaryKeyAttribute]: BomId },
+      where: { [Bom.primaryKeyAttribute]: bomId },
     });
 
     return materials;
@@ -65,11 +65,11 @@ export class BomsService {
 
   async createBomMaterial(
     res: Response,
-    BomId: number,
+    bomId: number,
     BomMaterialCreateDto: BomMaterialCreateDto,
   ) {
     const [bomExists, materialExists] = await Promise.all([
-      Bom.findByPk(BomId),
+      Bom.findByPk(bomId),
       Material.findByPk(BomMaterialCreateDto.materialNumber),
     ]);
 
@@ -81,7 +81,7 @@ export class BomsService {
 
     try {
       bomMaterial = await this.BomMaterialModel.create({
-        BomId,
+        bomId,
         ...BomMaterialCreateDto,
       });
     } catch (e) {

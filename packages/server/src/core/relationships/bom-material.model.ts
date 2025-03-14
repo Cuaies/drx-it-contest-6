@@ -6,7 +6,7 @@ import { Material } from '../../app/modules/materials/models/material.model';
 export class BomMaterial extends Model {
   @ForeignKey(() => Bom)
   @Column
-  BomId: number;
+  bomId: number;
 
   @ForeignKey(() => Material)
   @Column
