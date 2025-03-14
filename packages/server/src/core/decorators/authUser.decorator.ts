@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 /**
- * Decorator that extract currently authenticated user.
+ * Decorator that extracts the currently authenticated user.
  */
 export const AuthUser = createParamDecorator(
   (_: unknown, ctx: ExecutionContext) => {

@@ -121,7 +121,7 @@ export class UsersService {
   }
 
   async setUserRole(userId: number, createUserRoleDto: CreateUserRoleDto) {
-    let role = await this.userRoleModel
+    let userRole = await this.userRoleModel
       .create({
         userId,
         ...createUserRoleDto,
@@ -140,10 +140,10 @@ export class UsersService {
         throw e;
       });
 
-    if (role) {
-      role = role.dataValues;
+    if (userRole) {
+      userRole = userRole.dataValues;
     }
 
-    return role;
+    return userRole;
   }
 }

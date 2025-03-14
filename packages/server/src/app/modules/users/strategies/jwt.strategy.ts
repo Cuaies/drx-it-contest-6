@@ -36,6 +36,6 @@ export class JwtAtStrategy extends PassportStrategy(Strategy, JWT_AT) {
       include: [{ model: Role }],
     });
 
-    return user;
+    return user?.dataValues;
   }
 }
