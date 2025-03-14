@@ -4,6 +4,7 @@ export * from "./auth/register";
 // Users
 export * from "./dto/auth/login.dto";
 export * from "./dto/auth/register.dto";
+export * from "./dto/auth/roles/create.dto";
 
 // Products
 export * from "./dto/products/update.dto";

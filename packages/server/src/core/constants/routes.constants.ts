@@ -8,7 +8,7 @@ export const Routes = {
     Logout: '/logout',
     Roles: {
       GET: `:${Params.UserId}/roles`,
-      POST: `:${Params.UserId}/roles/:${Params.RoleId}`,
+      POST: `:${Params.UserId}/roles`,
     },
   },
   Roles: {

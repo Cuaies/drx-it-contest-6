@@ -1,6 +1,11 @@
-import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
+import {
+  getCreateUserRoleDto,
+  getLoginDto,
+  getRegisterDto,
+} from '@drx-it-contest-6/core';
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -17,9 +22,11 @@ import { JWT_AT_COOKIE } from '../../../core/constants';
 import { User } from './models';
 import { UserRole } from '../../../core/relationships';
 import { Role } from '../roles/models';
+import { ErrorNamesEnums } from '../../../ts/enums';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
+export class CreateUserRoleDto extends getCreateUserRoleDto() {}
 
 @Injectable()
 export class UsersService {
@@ -100,27 +107,43 @@ export class UsersService {
   }
 
   async getUserRoles(userId: number) {
-    const user = await this.userModel.findByPk(userId, {
-      include: [
-        { model: Role, attributes: ['roleName'], through: { attributes: [] } },
-      ],
+    const roles = await this.userRoleModel.findAndCountAll({
+      where: { userId },
+      include: [Role],
+      attributes: ['createdAt', 'deletedAt'],
     });
 
-    if (!user) {
+    if (!roles) {
       throw new NotFoundException();
     }
 
-    return user.roles;
+    return roles;
   }
 
-  async assignRoleToUser(userId: number, roleId: number) {
-    const user = await User.findByPk(userId);
-    const role = await Role.findByPk(roleId);
+  async setUserRole(userId: number, createUserRoleDto: CreateUserRoleDto) {
+    let role = await this.userRoleModel
+      .create({
+        userId,
+        ...createUserRoleDto,
+      })
+      .catch((e) => {
+        if (e instanceof Error) {
+          if (e.name === ErrorNamesEnums.SequelizeUniqueConstraintError) {
+            throw new ConflictException();
+          } else if (
+            e.name === ErrorNamesEnums.SequelizeForeignKeyConstraintError
+          ) {
+            throw new BadRequestException();
+          }
+        }
 
-    if (!user || !role) {
-      throw new NotFoundException();
+        throw e;
+      });
+
+    if (role) {
+      role = role.dataValues;
     }
 
-    await user.$add('roles', role);
+    return role;
   }
 }

@@ -9,7 +9,11 @@ import {
   Param,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { getLoginDto, getRegisterDto } from '@drx-it-contest-6/core';
+import {
+  getCreateUserRoleDto,
+  getLoginDto,
+  getRegisterDto,
+} from '@drx-it-contest-6/core';
 // skipcq: JS-0257
 import { Response } from 'express';
 import { Routes } from '../../../core/constants';
@@ -17,6 +21,7 @@ import { Params } from '../../../ts/enums';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
+export class CreateUserRoleDto extends getCreateUserRoleDto() {}
 
 @Controller(Routes.Users.Base)
 export class UsersController {
@@ -47,10 +52,10 @@ export class UsersController {
   }
 
   @Post(Routes.Users.Roles.POST)
-  assignRoleToUser(
+  setUserRole(
     @Param(Params.UserId) userId: number,
-    @Param(Params.RoleId) roleId: number,
+    @Body() createUserRoleDto: CreateUserRoleDto,
   ) {
-    return this.usersService.assignRoleToUser(userId, roleId);
+    return this.usersService.setUserRole(userId, createUserRoleDto);
   }
 }
