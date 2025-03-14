@@ -1,7 +1,7 @@
 import { Transform } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
-class BOMMaterialCreateDto {
+class BomMaterialCreateDto {
   @IsString()
   @IsNotEmpty()
   materialNumber!: string;
@@ -15,4 +15,4 @@ class BOMMaterialCreateDto {
   unitMeasureCode!: string;
 }
 
-export const getBOMMaterialCreateDto = () => BOMMaterialCreateDto;
+export const getBomMaterialCreateDto = () => BomMaterialCreateDto;

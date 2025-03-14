@@ -7,56 +7,56 @@ import {
   Post,
   Res,
 } from '@nestjs/common';
-import { BOMsService } from './boms.service';
+import { BomsService } from './boms.service';
 import {
-  getBOMCreateDto,
-  getBOMMaterialCreateDto,
+  getBomCreateDto,
+  getBomMaterialCreateDto,
 } from '@drx-it-contest-6/core';
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
 import { Response } from 'express';
 
-export class BOMCreateDto extends getBOMCreateDto() {}
-export class BOMMaterialCreateDto extends getBOMMaterialCreateDto() {}
+export class BomCreateDto extends getBomCreateDto() {}
+export class BomMaterialCreateDto extends getBomMaterialCreateDto() {}
 
-@Controller(Routes.BOMs.Base)
-export class BOMsController {
-  constructor(private readonly bomsService: BOMsService) {}
+@Controller(Routes.Boms.Base)
+export class BomsController {
+  constructor(private readonly bomsService: BomsService) {}
 
-  @Get(Routes.BOMs.GET)
-  getBOMs() {
-    return this.bomsService.getBOMs();
+  @Get(Routes.Boms.GET)
+  getBoms() {
+    return this.bomsService.getBoms();
   }
 
-  @Post(Routes.BOMs.POST)
-  createBOM(@Body() BOMCreateDto: BOMCreateDto) {
-    return this.bomsService.createBOM(BOMCreateDto);
+  @Post(Routes.Boms.POST)
+  createBom(@Body() bomCreateDto: BomCreateDto) {
+    return this.bomsService.createBom(bomCreateDto);
   }
 
-  @Get(Routes.BOMs.BOM.GET)
-  getBOM(@Param(Params.BOMId) id: string) {
-    return this.bomsService.getBOM(+id);
+  @Get(Routes.Boms.Bom.GET)
+  getBom(@Param(Params.BomId) id: string) {
+    return this.bomsService.getBom(+id);
   }
 
-  @Delete(Routes.BOMs.BOM.DELETE)
-  deleteBOM(
+  @Delete(Routes.Boms.Bom.DELETE)
+  deleteBom(
     @Res({ passthrough: true }) res: Response,
-    @Param(Params.BOMId) id: string,
+    @Param(Params.BomId) id: string,
   ) {
-    return this.bomsService.deleteBOM(res, +id);
+    return this.bomsService.deleteBom(res, +id);
   }
 
-  @Get(Routes.BOMs.BOM.MATERIALS.GET)
-  getBOMMaterials(@Param(Params.BOMId) id: string) {
-    return this.bomsService.getBOMMaterials(+id);
+  @Get(Routes.Boms.Bom.MATERIALS.GET)
+  getBomMaterials(@Param(Params.BomId) id: string) {
+    return this.bomsService.getBomMaterials(+id);
   }
 
-  @Post(Routes.BOMs.BOM.MATERIALS.POST)
-  createBOMMaterial(
+  @Post(Routes.Boms.Bom.MATERIALS.POST)
+  createBomMaterial(
     @Res({ passthrough: true }) res: Response,
-    @Param(Params.BOMId) id: string,
-    @Body() BOMMaterialCreateDto: BOMMaterialCreateDto,
+    @Param(Params.BomId) id: string,
+    @Body() bomMaterialCreateDto: BomMaterialCreateDto,
   ) {
-    return this.bomsService.createBOMMaterial(res, +id, BOMMaterialCreateDto);
+    return this.bomsService.createBomMaterial(res, +id, bomMaterialCreateDto);
   }
 }

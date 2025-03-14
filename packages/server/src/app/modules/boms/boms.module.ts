@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { BOMsService } from './boms.service';
-import { BOMsController } from './boms.controller';
+import { BomsService } from './boms.service';
+import { BomsController } from './boms.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BOM } from './models/bom.model';
-import { BOMMaterial } from '../../../core/relationships';
+import { Bom } from './models/bom.model';
+import { BomMaterial } from '../../../core/relationships';
 
 @Module({
-  imports: [SequelizeModule.forFeature([BOM, BOMMaterial])],
-  controllers: [BOMsController],
-  providers: [BOMsService],
+  imports: [SequelizeModule.forFeature([Bom, BomMaterial])],
+  controllers: [BomsController],
+  providers: [BomsService],
 })
-export class BOMsModule {}
+export class BomsModule {}

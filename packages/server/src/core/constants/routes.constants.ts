@@ -41,16 +41,16 @@ export const Routes = {
       DELETE: `:${Params.MaterialId}`,
     },
   },
-  BOMs: {
+  Boms: {
     Base: '/boms',
     GET: '',
     POST: '',
-    BOM: {
-      GET: `:${Params.BOMId}`,
-      DELETE: `:${Params.BOMId}`,
+    Bom: {
+      GET: `:${Params.BomId}`,
+      DELETE: `:${Params.BomId}`,
       MATERIALS: {
-        GET: `:${Params.BOMId}/materials`,
-        POST: `:${Params.BOMId}/materials`,
+        GET: `:${Params.BomId}/materials`,
+        POST: `:${Params.BomId}/materials`,
       },
     },
   },

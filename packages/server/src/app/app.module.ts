@@ -12,7 +12,7 @@ import {
   StagesModule,
   ProductsModule,
   MaterialsModule,
-  BOMsModule,
+  BomsModule,
 } from './modules';
 
 @Module({
@@ -32,7 +32,7 @@ import {
     StagesModule,
     ProductsModule,
     MaterialsModule,
-    BOMsModule,
+    BomsModule,
   ],
 })
 // skipcq: JS-0327

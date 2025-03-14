@@ -1,12 +1,12 @@
 import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
-import { BOM } from '../../app/modules/boms/models/bom.model';
+import { Bom } from '../../app/modules/boms/models/bom.model';
 import { Material } from '../../app/modules/materials/models/material.model';
 
 @Table
-export class BOMMaterial extends Model {
-  @ForeignKey(() => BOM)
+export class BomMaterial extends Model {
+  @ForeignKey(() => Bom)
   @Column
-  BOMId: number;
+  BomId: number;
 
   @ForeignKey(() => Material)
   @Column

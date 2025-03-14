@@ -5,8 +5,8 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
-import { BOM } from '../../boms/models/bom.model';
-import { BOMMaterial } from '../../../../core/relationships';
+import { Bom } from '../../boms/models/bom.model';
+import { BomMaterial } from '../../../../core/relationships';
 
 @Table({ paranoid: true, timestamps: true })
 export class Material extends Model {
@@ -26,6 +26,6 @@ export class Material extends Model {
   @Column
   width: number;
 
-  @BelongsToMany(() => BOM, () => BOMMaterial)
-  boms: BOM[];
+  @BelongsToMany(() => Bom, () => BomMaterial)
+  boms: Bom[];
 }

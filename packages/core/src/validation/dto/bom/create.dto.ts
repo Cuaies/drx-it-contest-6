@@ -1,9 +1,9 @@
 import { IsNotEmpty, IsString } from "class-validator";
 
-class BOMCreateDto {
+class BomCreateDto {
   @IsString()
   @IsNotEmpty()
   name!: string;
 }
 
-export const getBOMCreateDto = () => BOMCreateDto;
+export const getBomCreateDto = () => BomCreateDto;

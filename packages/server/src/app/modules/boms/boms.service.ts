@@ -1,38 +1,38 @@
 import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { BOM } from './models/bom.model';
+import { Bom } from './models/bom.model';
 import {
-  getBOMCreateDto,
-  getBOMMaterialCreateDto,
+  getBomCreateDto,
+  getBomMaterialCreateDto,
 } from '@drx-it-contest-6/core';
 import { Response } from 'express';
-import { BOMMaterial } from '../../../core/relationships';
+import { BomMaterial } from '../../../core/relationships';
 import { Material } from '../materials/models/material.model';
 
-export class BOMCreateDto extends getBOMCreateDto() {}
-export class BOMMaterialCreateDto extends getBOMMaterialCreateDto() {}
+export class BomCreateDto extends getBomCreateDto() {}
+export class BomMaterialCreateDto extends getBomMaterialCreateDto() {}
 
 @Injectable()
-export class BOMsService {
+export class BomsService {
   constructor(
-    @InjectModel(BOM)
-    private BOMModel: typeof BOM,
-    @InjectModel(BOMMaterial)
-    private BOMMaterialModel: typeof BOMMaterial,
+    @InjectModel(Bom)
+    private BomModel: typeof Bom,
+    @InjectModel(BomMaterial)
+    private BomMaterialModel: typeof BomMaterial,
   ) {}
 
-  getBOMs() {
-    return this.BOMModel.findAll();
+  getBoms() {
+    return this.BomModel.findAll();
   }
 
-  async createBOM(BOMCreateDto: BOMCreateDto) {
-    const bom = (await this.BOMModel.create({ ...BOMCreateDto }))?.dataValues;
+  async createBom(BomCreateDto: BomCreateDto) {
+    const bom = (await this.BomModel.create({ ...BomCreateDto }))?.dataValues;
 
     return bom;
   }
 
-  async getBOM(BOMId: number) {
-    const bom = (await this.BOMModel.findByPk(BOMId))?.dataValues;
+  async getBom(BomId: number) {
+    const bom = (await this.BomModel.findByPk(BomId))?.dataValues;
 
     if (!bom) {
       throw new NotFoundException();
@@ -41,10 +41,10 @@ export class BOMsService {
     return bom;
   }
 
-  async deleteBOM(res: Response, BOMId: number) {
-    const deleted = await this.BOMModel.destroy({
+  async deleteBom(res: Response, BomId: number) {
+    const deleted = await this.BomModel.destroy({
       where: {
-        [BOM.primaryKeyAttribute]: BOMId,
+        [Bom.primaryKeyAttribute]: BomId,
       },
     });
 
@@ -55,22 +55,22 @@ export class BOMsService {
     }
   }
 
-  async getBOMMaterials(BOMId: number) {
-    const materials = await this.BOMMaterialModel.findAll({
-      where: { BOMId },
+  async getBomMaterials(BomId: number) {
+    const materials = await this.BomMaterialModel.findAll({
+      where: { [Bom.primaryKeyAttribute]: BomId },
     });
 
     return materials;
   }
 
-  async createBOMMaterial(
+  async createBomMaterial(
     res: Response,
-    BOMId: number,
-    BOMMaterialCreateDto: BOMMaterialCreateDto,
+    BomId: number,
+    BomMaterialCreateDto: BomMaterialCreateDto,
   ) {
     const [bomExists, materialExists] = await Promise.all([
-      BOM.findByPk(BOMId),
-      Material.findByPk(BOMMaterialCreateDto.materialNumber),
+      Bom.findByPk(BomId),
+      Material.findByPk(BomMaterialCreateDto.materialNumber),
     ]);
 
     if (!bomExists || !materialExists) {
@@ -80,9 +80,9 @@ export class BOMsService {
     let bomMaterial;
 
     try {
-      bomMaterial = await this.BOMMaterialModel.create({
-        BOMId,
-        ...BOMMaterialCreateDto,
+      bomMaterial = await this.BomMaterialModel.create({
+        BomId,
+        ...BomMaterialCreateDto,
       });
     } catch (e) {
       if (e instanceof Error && e.name === 'SequelizeUniqueConstraintError') {
