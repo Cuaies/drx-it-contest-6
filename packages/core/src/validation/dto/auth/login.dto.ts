@@ -8,7 +8,7 @@ import {
 
 class LoginDto {
   @IsEmail()
-  @MaxLength(20)
+  @MaxLength(45)
   @MinLength(4)
   @IsNotEmpty()
   email!: string;
