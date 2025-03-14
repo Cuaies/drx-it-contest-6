@@ -13,6 +13,7 @@ import {
 import { ProductsService } from './products.service';
 import {
   getProductCreateDto,
+  getProductStageCreateDto,
   getProductUpdateDto,
 } from '@drx-it-contest-6/core';
 import { Routes } from '../../../core/constants';
@@ -21,6 +22,7 @@ import { Response } from 'express';
 
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
+export class ProductStageCreateDto extends getProductStageCreateDto() {}
 
 @Controller(Routes.Products.Base)
 export class ProductsController {
@@ -57,5 +59,18 @@ export class ProductsController {
     @Param(Params.ProductId) id: string,
   ) {
     return this.productsService.deleteProduct(res, +id);
+  }
+
+  @Get(Routes.Products.Product.Stages.GET)
+  getProductStages(@Param(Params.ProductId) id: string) {
+    return this.productsService.getProductStages(+id);
+  }
+
+  @Post(Routes.Products.Product.Stages.POST)
+  createProductStage(
+    @Param(Params.ProductId) id: string,
+    @Body() productStageCreateDto: ProductStageCreateDto,
+  ) {
+    return this.productsService.createProductStage(+id, productStageCreateDto);
   }
 }

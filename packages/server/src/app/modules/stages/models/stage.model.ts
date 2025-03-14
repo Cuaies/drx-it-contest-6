@@ -2,6 +2,7 @@ import {
   BeforeCreate,
   BeforeDestroy,
   BeforeUpdate,
+  BelongsToMany,
   Column,
   DataType,
   Model,
@@ -13,8 +14,10 @@ import { DBOpsErrorMessages } from '../../../../core/messages';
 import { SequelizeScopeError } from 'sequelize';
 import { StageDescriptions } from '../../../../core/constants/stageDescription.constants';
 import { StageDescription } from '../../../../ts/types';
+import { Product } from '../../products/models/product.model';
+import { ProductStage } from '../../../../core/relationships';
 
-@Table
+@Table({ paranoid: true, timestamps: false })
 export class Stage extends Model {
   @Unique
   @Column({
@@ -41,4 +44,7 @@ export class Stage extends Model {
   static preventDelete() {
     throw new SequelizeScopeError(DBOpsErrorMessages.ImmutableTable);
   }
+
+  @BelongsToMany(() => Product, () => ProductStage)
+  products: Product[];
 }

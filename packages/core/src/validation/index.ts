@@ -8,6 +8,7 @@ export * from "./dto/auth/register.dto";
 // Products
 export * from "./dto/products/update.dto";
 export * from "./dto/products/create.dto";
+export * from "./dto/products/stages/create.dto";
 
 // Materials
 export * from "./dto/materials/create.dto";

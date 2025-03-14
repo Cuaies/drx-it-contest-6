@@ -30,6 +30,10 @@ export const Routes = {
       GET: `:${Params.ProductId}`,
       PATCH: `:${Params.ProductId}`,
       DELETE: `:${Params.ProductId}`,
+      Stages: {
+        GET: `:${Params.ProductId}/stages`,
+        POST: `:${Params.ProductId}/stages`,
+      },
     },
   },
   Materials: {
