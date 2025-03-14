@@ -27,7 +27,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "pretest:e2e": "npm run docker:test",
     "test:e2e": "dotenvx run -f .env.testing -- jest --config ./test/jest-e2e.json",
-    "posttest:e2e": "dotenvx run -f .env.testing -- npm run docker:clean"
+    "posttest:e2e": "dotenvx run -f .env.testing -- npm run docker:clean",
+    "pretest:e2e:watch": "npm run docker:test",
+    "test:e2e:watch": "dotenvx run -f .env.testing -- jest --config ./test/jest-e2e.json --watch",
+    "posttest:e2e:watch": "dotenvx run -f .env.testing -- npm run docker:clean"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.38.5",
