@@ -2,9 +2,11 @@ import {
   BeforeCreate,
   BeforeDestroy,
   BeforeUpdate,
+  BelongsTo,
   BelongsToMany,
   Column,
   DataType,
+  ForeignKey,
   Model,
   Table,
   Unique,
@@ -16,6 +18,7 @@ import { StageDescriptions } from '../../../../core/constants/stageDescription.c
 import { StageDescription } from '../../../../ts/types';
 import { Product } from '../../products/models/product.model';
 import { ProductStage } from '../../../../core/relationships';
+import { Role } from '../../roles/models';
 
 @Table({ paranoid: true, timestamps: false })
 export class Stage extends Model {
@@ -29,6 +32,13 @@ export class Stage extends Model {
 
   @Column
   description: StageDescription;
+
+  @ForeignKey(() => Role)
+  @Column
+  roleId: number;
+
+  @BelongsTo(() => Role)
+  permittedRole: Role;
 
   @BeforeCreate
   static setDescription(instance: Stage) {

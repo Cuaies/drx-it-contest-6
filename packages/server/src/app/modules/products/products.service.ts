@@ -6,6 +6,7 @@ import {
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   HttpStatus,
   Injectable,
   NotFoundException,
@@ -17,6 +18,7 @@ import { Stage } from '../stages/models/stage.model';
 import { ProductStage } from '../../../core/relationships';
 import { User } from '../users/models';
 import { ErrorNamesEnums } from '../../../ts/enums';
+import { Role } from '../roles/models';
 
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
@@ -96,10 +98,22 @@ export class ProductsService {
   }
 
   async createProductStage(
+    user: User,
     productId: number,
     productStageCreateDto: ProductStageCreateDto,
   ) {
-    let stage = await this.productStageModel
+    const stage = await Stage.findByPk(productStageCreateDto.stageId, {
+      include: [Role],
+    });
+
+    if (!stage) throw new BadRequestException();
+
+    const userRoleIds = user.roles.map((r) => r.id);
+    const permittedRoleId = stage.permittedRole.id;
+
+    if (!userRoleIds.includes(permittedRoleId)) throw new ForbiddenException();
+
+    const productStage = await this.productStageModel
       .create({
         [Product.primaryKeyAttribute]: productId,
         ...productStageCreateDto,
@@ -118,10 +132,6 @@ export class ProductsService {
         throw e;
       });
 
-    if (stage) {
-      stage = stage.dataValues;
-    }
-
-    return stage;
+    return productStage;
   }
 }

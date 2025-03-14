@@ -7,12 +7,14 @@ import {
   BelongsToMany,
   BeforeUpdate,
   BeforeDestroy,
+  HasMany,
 } from 'sequelize-typescript';
 import { RolesEnum } from '../../../../ts/enums';
 import { User } from '../../users/models';
 import { UserRole } from '../../../../core/relationships';
 import { SequelizeScopeError } from 'sequelize';
 import { DBOpsErrorMessages } from '../../../../core/messages';
+import { Stage } from '../../stages/models/stage.model';
 
 @Table({ timestamps: false })
 export class Role extends Model {
@@ -26,6 +28,9 @@ export class Role extends Model {
 
   @BelongsToMany(() => User, () => UserRole)
   users: User[];
+
+  @HasMany(() => Stage)
+  permittedStages: Stage[];
 
   @BeforeUpdate
   static preventUpdate() {

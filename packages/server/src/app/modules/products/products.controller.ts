@@ -9,6 +9,7 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import {
@@ -19,6 +20,9 @@ import {
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
 import { Response } from 'express';
+import { AuthUser } from '../../../core/decorators';
+import { User } from '../users/models';
+import { JwtAtGuard } from '../../../core/guards';
 
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
@@ -67,10 +71,16 @@ export class ProductsController {
   }
 
   @Post(Routes.Products.Product.Stages.POST)
+  @UseGuards(JwtAtGuard)
   createProductStage(
+    @AuthUser() user: User,
     @Param(Params.ProductId) id: string,
     @Body() productStageCreateDto: ProductStageCreateDto,
   ) {
-    return this.productsService.createProductStage(+id, productStageCreateDto);
+    return this.productsService.createProductStage(
+      user,
+      +id,
+      productStageCreateDto,
+    );
   }
 }

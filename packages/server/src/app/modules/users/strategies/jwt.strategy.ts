@@ -33,9 +33,9 @@ export class JwtAtStrategy extends PassportStrategy(Strategy, JWT_AT) {
    */
   async validate(payload: { sub: number }) {
     const user = await this.userModel.findByPk(payload.sub, {
-      include: [{ model: Role }],
+      include: [Role],
     });
 
-    return user?.dataValues;
+    return user;
   }
 }
