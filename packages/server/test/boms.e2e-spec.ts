@@ -30,4 +30,9 @@ describe('Boms', () => {
     // TODO: create host config
     await app.listen(3000);
   });
+
+  describe('/ GET', () => {
+    it.todo('should return boms');
+    it.todo('should throw if user in not authenticated');
+  });
 });
