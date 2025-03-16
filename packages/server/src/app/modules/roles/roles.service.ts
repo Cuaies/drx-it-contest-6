@@ -1,8 +1,12 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Role } from './models';
 import { UserRole } from '../../../core/relationships';
 import { User } from '../users/models';
+import { PaginationService } from '../pagination/pagination.service';
+import { getPaginationDto } from '@drx-it-contest-6/core';
+
+export class PaginationDto extends getPaginationDto() {}
 
 @Injectable()
 export class RolesService {
@@ -11,21 +15,19 @@ export class RolesService {
     private roleModel: typeof Role,
     @InjectModel(UserRole)
     private userRoleModel: typeof UserRole,
+    private paginationService: PaginationService,
   ) {}
 
-  async getRoles() {
-    return this.roleModel.findAll();
+  getRoles(paginationDto: PaginationDto) {
+    return this.paginationService.paginate(paginationDto, this.roleModel);
   }
 
-  async getRoleUsers(roleId: number) {
-    const role = await this.roleModel.findByPk(roleId, {
-      include: [{ model: User, through: { attributes: [] } }],
-    });
-
-    if (!role) {
-      throw new NotFoundException();
-    }
-
-    return role.users;
+  getRoleUsers(paginationDto: PaginationDto, roleId: number) {
+    return this.paginationService.paginate(
+      paginationDto,
+      this.userRoleModel,
+      { roleId },
+      { include: [User] },
+    );
   }
 }

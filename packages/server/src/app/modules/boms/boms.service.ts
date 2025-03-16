@@ -4,13 +4,16 @@ import { Bom } from './models/bom.model';
 import {
   getBomCreateDto,
   getBomMaterialCreateDto,
+  getPaginationDto,
 } from '@drx-it-contest-6/core';
 import { Response } from 'express';
 import { BomMaterial } from '../../../core/relationships';
 import { Material } from '../materials/models/material.model';
+import { PaginationService } from '../pagination/pagination.service';
 
 export class BomCreateDto extends getBomCreateDto() {}
 export class BomMaterialCreateDto extends getBomMaterialCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Injectable()
 export class BomsService {
@@ -19,10 +22,11 @@ export class BomsService {
     private BomModel: typeof Bom,
     @InjectModel(BomMaterial)
     private BomMaterialModel: typeof BomMaterial,
+    private paginationService: PaginationService,
   ) {}
 
-  getBoms() {
-    return this.BomModel.findAll();
+  getBoms(paginationDto: PaginationDto) {
+    return this.paginationService.paginate(paginationDto, this.BomModel);
   }
 
   async createBom(BomCreateDto: BomCreateDto) {
@@ -55,12 +59,12 @@ export class BomsService {
     }
   }
 
-  async getBomMaterials(bomId: number) {
-    const materials = await this.BomMaterialModel.findAll({
-      where: { [Bom.primaryKeyAttribute]: bomId },
-    });
-
-    return materials;
+  async getBomMaterials(paginationDto: PaginationDto, bomId: number) {
+    return this.paginationService.paginate(
+      paginationDto,
+      this.BomMaterialModel,
+      { bomId: bomId },
+    );
   }
 
   async createBomMaterial(

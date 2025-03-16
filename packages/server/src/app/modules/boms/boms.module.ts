@@ -4,10 +4,11 @@ import { BomsController } from './boms.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Bom } from './models/bom.model';
 import { BomMaterial } from '../../../core/relationships';
+import { PaginationService } from '../pagination/pagination.service';
 
 @Module({
   imports: [SequelizeModule.forFeature([Bom, BomMaterial])],
   controllers: [BomsController],
-  providers: [BomsService],
+  providers: [BomsService, PaginationService],
 })
 export class BomsModule {}
