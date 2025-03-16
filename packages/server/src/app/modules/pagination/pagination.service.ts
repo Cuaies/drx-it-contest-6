@@ -62,7 +62,8 @@ export class PaginationService {
       rows.reverse();
     }
 
-    const nextCursor = rows.length ? rows[rows.length - 1][sortField] : null;
+    const nextCursor =
+      rows.length && count > limit ? rows[rows.length - 1][sortField] : null;
     const prevCursor = cursor
       ? rows.length
         ? rows[0][sortField]

@@ -1,4 +1,5 @@
 import {
+  getPaginationDto,
   getProductCreateDto,
   getProductStageCreateDto,
   getProductUpdateDto,
@@ -19,10 +20,12 @@ import { ProductStage } from '../../../core/relationships';
 import { User } from '../users/models';
 import { ErrorNamesEnums } from '../../../ts/enums';
 import { Role } from '../roles/models';
+import { PaginationService } from '../pagination/pagination.service';
 
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
 export class ProductStageCreateDto extends getProductStageCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Injectable()
 export class ProductsService {
@@ -31,10 +34,11 @@ export class ProductsService {
     private productModel: typeof Product,
     @InjectModel(ProductStage)
     private productStageModel: typeof ProductStage,
+    private paginationService: PaginationService,
   ) {}
 
-  getProducts() {
-    return this.productModel.findAll();
+  getProducts(paginationDto: PaginationDto) {
+    return this.paginationService.paginate(paginationDto, this.productModel);
   }
 
   async createProduct(createProductDto: ProductCreateDto) {

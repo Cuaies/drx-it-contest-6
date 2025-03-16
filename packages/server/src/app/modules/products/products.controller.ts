@@ -10,9 +10,11 @@ import {
   HttpCode,
   Res,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import {
+  getPaginationDto,
   getProductCreateDto,
   getProductStageCreateDto,
   getProductUpdateDto,
@@ -27,14 +29,15 @@ import { JwtAtGuard } from '../../../core/guards';
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
 export class ProductStageCreateDto extends getProductStageCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Controller(Routes.Products.Base)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get(Routes.Products.GET)
-  getProducts() {
-    return this.productsService.getProducts();
+  getProducts(@Query() paginationDto: PaginationDto) {
+    return this.productsService.getProducts(paginationDto);
   }
 
   @Post(Routes.Products.POST)
