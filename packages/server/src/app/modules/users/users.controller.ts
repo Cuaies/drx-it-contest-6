@@ -8,6 +8,7 @@ import {
   Get,
   Param,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
@@ -19,7 +20,9 @@ import {
 // skipcq: JS-0257
 import { Response } from 'express';
 import { Routes } from '../../../core/constants';
-import { Params } from '../../../ts/enums';
+import { Params, RolesEnum } from '../../../ts/enums';
+import { JwtAtGuard, RolesGuard } from '../../../core/guards';
+import { Roles } from '../../../core/decorators';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
@@ -50,11 +53,15 @@ export class UsersController {
   }
 
   @Get(Routes.Users.GET)
+  @Roles(RolesEnum.Admin)
+  @UseGuards(JwtAtGuard, RolesGuard)
   getUsers(@Query() paginationDto: PaginationDto) {
     return this.usersService.getUsers(paginationDto);
   }
 
   @Get(Routes.Users.Roles.GET)
+  @Roles(RolesEnum.Admin)
+  @UseGuards(JwtAtGuard, RolesGuard)
   getUserRoles(
     @Query() paginationDto: PaginationDto,
     @Param(Params.UserId) userId: number,
@@ -63,6 +70,8 @@ export class UsersController {
   }
 
   @Post(Routes.Users.Roles.POST)
+  @Roles(RolesEnum.Admin)
+  @UseGuards(JwtAtGuard, RolesGuard)
   setUserRole(
     @Param(Params.UserId) userId: number,
     @Body() createUserRoleDto: CreateUserRoleDto,
