@@ -1,0 +1,58 @@
+@use "sass:color";
+
+// Colors - Palette
+$primary-color: #fff;
+$accent-color: #0097aa;
+
+// Colors - Text
+$font-color: #454545;
+$link-color: #0097aa;
+$hover-color: color.adjust($link-color, $lightness: -10%);
+
+// Fonts
+$font-family-primary: "Inter", ui-sans-serif;
+$font-family-secondary: "Inter", ui-sans-serif;
+$font-size-base: 16px;
+$font-size-heading: 24px;
+$font-size-small: 14px;
+
+// Z-index
+$z-index-base: 1;
+$z-index-modal: 9999;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  color: $font-color;
+}
+
+a {
+  text-decoration: none;
+  color: $accent-color;
+
+  &:hover {
+    color: $hover-color;
+  }
+}
+
+.btn {
+}
+
+.btn-primary {
+  background-color: $accent-color;
+
+  border-width: 3px;
+  border-color: $accent-color;
+
+  &:hover {
+    transition: all 0.09s ease;
+    cursor: pointer;
+    color: $accent-color;
+  }
+}
