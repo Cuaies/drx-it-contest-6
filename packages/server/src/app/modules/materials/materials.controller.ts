@@ -6,22 +6,24 @@ import {
   Param,
   Delete,
   Res,
+  Query,
 } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
-import { getMaterialCreateDto } from '@drx-it-contest-6/core';
+import { getMaterialCreateDto, getPaginationDto } from '@drx-it-contest-6/core';
 import { Response } from 'express';
 
 export class MaterialCreateDto extends getMaterialCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Controller(Routes.Materials.Base)
 export class MaterialsController {
   constructor(private readonly materialsService: MaterialsService) {}
 
   @Get(Routes.Materials.GET)
-  getMaterials() {
-    return this.materialsService.getMaterials();
+  getMaterials(@Query() paginationDto: PaginationDto) {
+    return this.materialsService.getMaterials(paginationDto);
   }
 
   @Post(Routes.Materials.POST)
