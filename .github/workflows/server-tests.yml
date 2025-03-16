@@ -86,6 +86,10 @@ jobs:
           name: core-build
           path: packages/core/dist
 
+      - name: Start Docker for E2E tests
+        working-directory: packages/server
+        run: npm run pretest:e2e
+
       - name: Run E2E tests
         working-directory: packages/server
         run: npm run test:e2e
