@@ -7,7 +7,7 @@ export const dbConfiguration = () => ({
     username: process.env.POSTGRESQL_USERNAME,
     password: process.env.POSTGRESQL_PASSWORD,
     autoLoadModels: true,
-    synchronize: true, // TODO: change based on env
+    synchronize: process.env.SYNCHRONIZE ?? false,
     define: {
       underscored: true,
     },
