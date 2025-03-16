@@ -17,3 +17,6 @@ export * from "./dto/materials/create.dto";
 // Boms
 export * from "./dto/bom/create.dto";
 export * from "./dto/bom/materialCreate.dto";
+
+// Pagination
+export * from "./dto/services/pagination.dto";

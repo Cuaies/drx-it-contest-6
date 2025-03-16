@@ -13,6 +13,7 @@ import {
   ProductsModule,
   MaterialsModule,
   BomsModule,
+  PaginationModule,
 } from './modules';
 
 @Module({
@@ -27,6 +28,7 @@ import {
       }),
       inject: [ConfigService],
     }),
+    PaginationModule,
     UsersModule,
     RolesModule,
     StagesModule,
