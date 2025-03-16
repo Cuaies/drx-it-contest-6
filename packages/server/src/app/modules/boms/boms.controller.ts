@@ -5,12 +5,14 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Res,
 } from '@nestjs/common';
 import { BomsService } from './boms.service';
 import {
   getBomCreateDto,
   getBomMaterialCreateDto,
+  getPaginationDto,
 } from '@drx-it-contest-6/core';
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
@@ -18,14 +20,15 @@ import { Response } from 'express';
 
 export class BomCreateDto extends getBomCreateDto() {}
 export class BomMaterialCreateDto extends getBomMaterialCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Controller(Routes.Boms.Base)
 export class BomsController {
   constructor(private readonly bomsService: BomsService) {}
 
   @Get(Routes.Boms.GET)
-  getBoms() {
-    return this.bomsService.getBoms();
+  getBoms(@Query() paginationDto: PaginationDto) {
+    return this.bomsService.getBoms(paginationDto);
   }
 
   @Post(Routes.Boms.POST)
@@ -47,8 +50,11 @@ export class BomsController {
   }
 
   @Get(Routes.Boms.Bom.MATERIALS.GET)
-  getBomMaterials(@Param(Params.BomId) id: string) {
-    return this.bomsService.getBomMaterials(+id);
+  getBomMaterials(
+    @Query() paginationDto: PaginationDto,
+    @Param(Params.BomId) id: number,
+  ) {
+    return this.bomsService.getBomMaterials(paginationDto, id);
   }
 
   @Post(Routes.Boms.Bom.MATERIALS.POST)
