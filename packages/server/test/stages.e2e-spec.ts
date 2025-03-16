@@ -8,7 +8,7 @@ import { dbConfiguration } from '../src/app/config';
 describe('Stages', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         StagesModule,
@@ -27,6 +27,10 @@ describe('Stages', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   describe('/ GET', () => {

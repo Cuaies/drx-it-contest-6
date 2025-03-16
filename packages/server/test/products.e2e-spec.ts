@@ -8,7 +8,7 @@ import { dbConfiguration } from '../src/app/config';
 describe('Products', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ProductsModule,
@@ -27,6 +27,10 @@ describe('Products', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    return await app.close();
   });
 
   describe('/ GET', () => {

@@ -31,6 +31,10 @@ describe('Boms', () => {
     await app.listen(3000);
   });
 
+  afterAll(async () => {
+    await app.close();
+  });
+
   describe('/ GET', () => {
     it.todo('should return boms');
     it.todo('should throw if user in not authenticated');

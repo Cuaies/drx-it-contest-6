@@ -3,19 +3,19 @@ import { INestApplication } from '@nestjs/common';
 import { UsersModule } from '../src/app/modules';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { dbConfiguration } from '../src/app/config';
-import { spec } from 'pactum';
+import { authConfiguration, dbConfiguration } from '../src/app/config';
 
 describe('Users', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         UsersModule,
         ConfigModule.forRoot({
-          load: [dbConfiguration],
+          load: [dbConfiguration, authConfiguration],
         }),
+
         SequelizeModule.forRootAsync({
           imports: [ConfigModule],
           useFactory: (configService: ConfigService) => ({
@@ -28,6 +28,10 @@ describe('Users', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   describe('/register POST', () => {

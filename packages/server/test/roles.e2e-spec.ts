@@ -4,12 +4,11 @@ import { RolesModule } from '../src/app/modules';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { dbConfiguration } from '../src/app/config';
-import { spec } from 'pactum';
 
 describe('Roles', () => {
   let app: INestApplication;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         RolesModule,
@@ -28,6 +27,10 @@ describe('Roles', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 
   describe('/ GET', () => {
