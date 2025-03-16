@@ -11,6 +11,7 @@ export class PaginationService {
     paginationDto: PaginationDto,
     model: ModelCtor<M>,
     extraWhereOptions?: WhereOptions<Attributes<M>>,
+    extraFindOptions?: Omit<FindAndCountOptions<Attributes<M>>, 'group'>,
   ) {
     const modelFields = Object.keys(model.getAttributes());
     const { limit, sortField, sortOrder, cursor, ...filters } = paginationDto;
@@ -38,6 +39,7 @@ export class PaginationService {
       where: whereOptions,
       order: [[sortField, sortOrder]],
       limit,
+      ...extraFindOptions,
     };
 
     console.log(findOptions);

@@ -8,6 +8,7 @@ import { User } from './models';
 import { UserRole } from '../../../core/relationships';
 import { Role } from '../roles/models';
 import { JwtAtStrategy } from './strategies';
+import { PaginationService } from '../pagination/pagination.service';
 
 @Module({
   imports: [
@@ -16,6 +17,6 @@ import { JwtAtStrategy } from './strategies';
     SequelizeModule.forFeature([User, Role, UserRole]),
   ],
   controllers: [UsersController],
-  providers: [UsersService, JwtAtStrategy],
+  providers: [UsersService, JwtAtStrategy, PaginationService],
 })
 export class UsersModule {}
