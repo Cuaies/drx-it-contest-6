@@ -1,0 +1,13 @@
+{
+  "name": "@drx-it-contest-6/core",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1"
+  }
+}

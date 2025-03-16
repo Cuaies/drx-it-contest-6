@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
-  "references": [],
+  "references": [{ "path": "../core" }],
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,

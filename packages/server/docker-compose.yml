@@ -1,0 +1,12 @@
+services:
+  postgres_db:
+    image: postgres:14-alpine
+    platform: linux/amd64
+    ports:
+      - ${POSTGRESQL_PORT}:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/${POSTGRESQL_DATABASE}/data
+    environment:
+      - POSTGRES_DB=${POSTGRESQL_DATABASE}
+      - POSTGRES_USER=${POSTGRESQL_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}
