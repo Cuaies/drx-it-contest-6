@@ -5,4 +5,4 @@ export * from './products/products.module';
 export * from './materials/materials.module';
 export * from './boms/boms.module';
 export * from './pagination/pagination.module';
-export * from './documents/documents.module';
+export * from './documents';
