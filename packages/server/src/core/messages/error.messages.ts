@@ -5,4 +5,5 @@ export const enum DBOpsErrorMessages {
 
 export const enum ServerOpsErrorMessages {
   UnknownException = 'Unknown Exception',
+  InvalidFormatProvided = 'Invalid format provided',
 }

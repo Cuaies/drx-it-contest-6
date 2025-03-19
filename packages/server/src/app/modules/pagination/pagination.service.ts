@@ -42,7 +42,6 @@ export class PaginationService {
       ...extraFindOptions,
     };
 
-    console.log(findOptions);
     let queryResponse;
 
     try {

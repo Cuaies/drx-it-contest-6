@@ -48,6 +48,8 @@
     "class-validator": "^0.14.1",
     "cookie-parser": "^1.4.7",
     "passport-jwt": "^4.0.1",
+    "pdf-lib": "^1.17.1",
+    "pdf-lib-draw-table-beta": "^0.1.22",
     "pg": "^8.14.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
