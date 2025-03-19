@@ -5,6 +5,8 @@ import {
   DocumentTemplatesEnum,
   DocumentTemplateSpecificData,
 } from '../types';
+import { transformModelAttribute } from '../../../../core/utils';
+import { fetchQuickChart } from '../utils';
 
 export class ProductReportTemplateGenerator
   extends BaseDocumentConfig
@@ -144,33 +146,40 @@ export class ProductReportTemplateGenerator
       font: secondaryFont,
     });
 
-    // TODO: generate stage history chart
-    // const labels: string[] = [];
-    // const datasets: { data: any[]; backgroundColor: string[] } = {
-    //   data: [],
-    //   backgroundColor: [],
-    // };
+    const labels: string[] = [];
+    // eslint-disable-next-line
+    const datasets: { data: any[]; backgroundColor: string[] } = {
+      data: [],
+      backgroundColor: [],
+    };
 
-    // product.stages.forEach((stage, i) => {
-    //   let startDate, endDate;
+    // TODO: fix typing
+    product.stages.forEach((stage, i, arr) => {
+      const nextStage = arr[i + 1];
+      // eslint-disable-next-line
+      const startDate = new Date((stage as any).ProductStage.startOfStage);
+      const endDate = nextStage
+        ? // eslint-disable-next-line
+          new Date((nextStage as any).ProductStage.startOfStage)
+        : new Date();
 
-    //   labels.push(transformModelAttribute(stage.name));
-    //   datasets.data.push([startDate.getTime(), endDate.getTime()]);
-    //   datasets.backgroundColor.push('rgba(0, 150, 170, 0.3)');
-    // });
+      labels.push(transformModelAttribute(stage.name));
+      datasets.data.push([startDate.getTime(), endDate.getTime()]);
+      datasets.backgroundColor.push('rgba(0, 150, 170, 0.3)');
+    });
 
-    // const imageBytes = await fetchQuickChart({
-    //   labels,
-    //   datasets: [datasets],
-    // });
-    // const stagesHistoryChart = await pdfDoc.embedPng(imageBytes);
-    // const stagesHistoryChartDimensions = stagesHistoryChart.scale(0.4);
-    // page.drawImage(stagesHistoryChart, {
-    //   x,
-    //   y: this.getYOffset(30) - stagesHistoryChartDimensions.height,
-    //   width: stagesHistoryChartDimensions.width,
-    //   height: stagesHistoryChartDimensions.height,
-    // });
+    const imageBytes = await fetchQuickChart({
+      labels,
+      datasets: [datasets],
+    });
+    const stagesHistoryChart = await pdfDoc.embedPng(imageBytes);
+    const stagesHistoryChartDimensions = stagesHistoryChart.scale(0.4);
+    page.drawImage(stagesHistoryChart, {
+      x,
+      y: this.getYOffset(30) - stagesHistoryChartDimensions.height,
+      width: stagesHistoryChartDimensions.width,
+      height: stagesHistoryChartDimensions.height,
+    });
 
     return await pdfDoc.save();
   }

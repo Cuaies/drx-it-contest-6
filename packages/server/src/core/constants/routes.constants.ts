@@ -59,4 +59,13 @@ export const Routes = {
       },
     },
   },
+  Documents: {
+    Base: '/documents',
+    Products: {
+      ProductReport: `/products/:${Params.ProductId}/report`,
+    },
+    BOMs: {
+      BOM: `/boms/:${Params.BomId}`,
+    },
+  },
 } as const;
