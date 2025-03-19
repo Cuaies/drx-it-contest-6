@@ -4,8 +4,6 @@ import {
   BaseDocumentConfigSpecification,
 } from '../types';
 
-// TODO: state persist after doc creation
-
 /**
  * Base document configuration, from page size to font options, and so on.
  */

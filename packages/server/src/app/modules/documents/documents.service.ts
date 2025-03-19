@@ -14,6 +14,7 @@ import { Bom } from '../boms/models/bom.model';
 import { Stage } from '../stages/models/stage.model';
 import { createStreamableFileOptions } from '../../../core/utils';
 import { Material } from '../materials/models/material.model';
+import { ServerOpsErrorMessages } from '../../../core/messages';
 
 @Injectable()
 export class DocumentsService {
@@ -25,16 +26,28 @@ export class DocumentsService {
   ) {}
 
   /**
-   * Available document templates.
+   * Gets a generator's strategy.
    */
-  private strategies: Record<
-    DocumentTemplatesEnum,
-    DocumentTemplateGeneratorStrategy<unknown>
-  > = {
-    [DocumentTemplatesEnum.BillOfMaterials]:
-      new BillOfMaterialsTemplateGenerator(),
-    [DocumentTemplatesEnum.ProductReport]: new ProductReportTemplateGenerator(),
-  };
+  private getStrategy<Template extends DocumentTemplatesEnum>(
+    template: Template,
+  ): DocumentTemplateGeneratorStrategy<DocumentTemplateSpecificData[Template]> {
+    const strategies: Record<
+      DocumentTemplatesEnum,
+      DocumentTemplateGeneratorStrategy<unknown>
+    > = {
+      [DocumentTemplatesEnum.BillOfMaterials]:
+        new BillOfMaterialsTemplateGenerator(),
+      [DocumentTemplatesEnum.ProductReport]:
+        new ProductReportTemplateGenerator(),
+    };
+
+    const strategy = strategies[template];
+    if (!strategy) {
+      throw new Error(ServerOpsErrorMessages.InvalidFormatProvided);
+    }
+
+    return strategy;
+  }
 
   /**
    * Generates PDF documents based on chosen template.
@@ -43,7 +56,8 @@ export class DocumentsService {
     template: Template,
     data: DocumentTemplateSpecificData[Template],
   ) {
-    return this.strategies[template].generate(data);
+    const strategy = this.getStrategy(template);
+    return strategy.generate(data);
   }
 
   public async getProductReport(productId: number) {
