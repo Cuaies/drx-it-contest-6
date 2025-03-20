@@ -8,6 +8,7 @@ import {
   Query,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { BomsService } from './boms.service';
 import {
@@ -19,11 +20,13 @@ import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
 import { Response } from 'express';
 import { JwtAtGuard } from '../../../core/guards';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 export class BomCreateDto extends getBomCreateDto() {}
 export class BomMaterialCreateDto extends getBomMaterialCreateDto() {}
 export class PaginationDto extends getPaginationDto() {}
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Boms.Base)
 export class BomsController {
   constructor(private readonly bomsService: BomsService) {}

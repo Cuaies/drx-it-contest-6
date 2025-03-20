@@ -11,6 +11,7 @@ import {
   Res,
   UseGuards,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import {
@@ -25,12 +26,14 @@ import { Response } from 'express';
 import { AuthUser, Roles } from '../../../core/decorators';
 import { User } from '../users/models';
 import { JwtAtGuard, RolesGuard } from '../../../core/guards';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 export class ProductCreateDto extends getProductCreateDto() {}
 export class ProductUpdateDto extends getProductUpdateDto() {}
 export class ProductStageCreateDto extends getProductStageCreateDto() {}
 export class PaginationDto extends getPaginationDto() {}
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Products.Base)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

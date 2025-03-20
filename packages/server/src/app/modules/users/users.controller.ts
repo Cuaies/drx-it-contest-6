@@ -9,6 +9,7 @@ import {
   Param,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
@@ -23,12 +24,14 @@ import { Routes } from '../../../core/constants';
 import { Params, RolesEnum } from '../../../ts/enums';
 import { JwtAtGuard, RolesGuard } from '../../../core/guards';
 import { Roles } from '../../../core/decorators';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 export class CreateUserRoleDto extends getCreateUserRoleDto() {}
 export class PaginationDto extends getPaginationDto() {}
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Users.Base)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
