@@ -7,6 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../constants';
 import { UserErrorMessages } from '../messages';
+import { RolesEnum } from '../../ts/enums';
 
 /**
  * Guard that blocks request if user not of role.
@@ -25,11 +26,16 @@ export class RolesGuard implements CanActivate {
     }
 
     const req = context.switchToHttp().getRequest();
-    const roles = req.user.roles.map((role) => role.roleName);
 
+    if (req.user.roles.includes(RolesEnum.Admin)) {
+      return true;
+    }
+
+    const roles = req.user.roles.map((role) => role.roleName);
     const hasRole = requiredRoles.some((requiredRole) =>
       roles.includes(requiredRole),
     );
+
     if (!hasRole) {
       throw new ForbiddenException(UserErrorMessages.InsufficientPermission);
     }
