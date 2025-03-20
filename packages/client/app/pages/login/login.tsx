@@ -3,7 +3,7 @@ import "./login.scss";
 
 export const LoginPage = () => {
   return (
-    <div>
+    <div className="h-screen !my-20">
       <LoginForm />
     </div>
   );

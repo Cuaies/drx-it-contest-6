@@ -21,7 +21,7 @@ const ThemeToggleButton = () => {
   };
 
   return (
-    <button onClick={toggleTheme} className="!p-2">
+    <button onClick={toggleTheme} className="!p-2 cursor-pointer">
       {isDarkMode ? (
         <MdOutlineLightMode size={20} />
       ) : (

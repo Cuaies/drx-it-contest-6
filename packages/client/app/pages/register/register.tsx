@@ -3,7 +3,7 @@ import "./register.scss";
 
 export const RegisterPage = () => {
   return (
-    <div>
+    <div className="h-screen !my-20">
       <RegisterForm />
     </div>
   );

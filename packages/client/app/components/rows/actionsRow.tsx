@@ -16,10 +16,16 @@ export const renderActionRow = (item: Record<string, unknown>): ReactNode => {
       ))}
       <td key={50}>
         <div className="flex align-center justify-center gap-2">
-          <button className="flex align-venter justify-center gap-2 rounded-full cursor-pointer !p-2 !my-2 text-black bg-yellow-200 dark:text-white dark:bg-yellow-500">
+          <button
+            disabled
+            className="disabled:opacity-25 disabled:cursor-not-allowed flex align-venter justify-center gap-2 rounded-full cursor-pointer !p-2 !my-2 text-black bg-yellow-200 dark:text-white dark:bg-yellow-500"
+          >
             <FiEye />
           </button>
-          <button className="flex align-venter justify-center gap-2 rounded-full cursor-pointer !p-2 !my-2 text-black bg-red-200 dark:text-white dark:bg-red-400">
+          <button
+            disabled
+            className="disabled:opacity-25 disabled:cursor-not-allowed flex align-venter justify-center gap-2 rounded-full cursor-pointer !p-2 !my-2 text-black bg-red-200 dark:text-white dark:bg-red-400"
+          >
             <MdOutlineDeleteOutline />
           </button>
         </div>

@@ -15,7 +15,7 @@ export const useProvideAuth = () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => res.status === 200 && setUser(res.data.user))
       .catch((e) => setErrors(e));
   };
 
@@ -34,7 +34,9 @@ export const useProvideAuth = () => {
   const logout = () => {
     return fetch("http://localhost:3000/users/logout", {
       method: "POST",
-    }).catch((e) => setErrors(e));
+    })
+      .then((res) => res.status === 200 && setUser(null))
+      .catch((e) => setErrors(e));
   };
 
   return {
