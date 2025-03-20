@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Loader, renderActionRow, Table } from "../../components";
 import axios from "axios";
-import { Toast } from "../../components/toast";
-import type { Column } from "../../ts/types";
+import type { Column } from "../ts/types";
+import { Toast } from "../components/toast";
+import { Loader, renderActionRow, Table } from "../components";
 
 let columns: Column[] = [];
 
-export const MaterialsPage = () => {
+export const ProductsPage = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [threwError, setThrewError] = useState(false);
@@ -14,7 +14,7 @@ export const MaterialsPage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/materials")
+      .get("http://localhost:3000/products")
       .then((res) => {
         setData(res.data);
         columns.push(
@@ -35,7 +35,7 @@ export const MaterialsPage = () => {
 
   return (
     <div className="h-screen bg-white rounded-xl shadow-xs bg-white text-black dark:text-white dark:bg-gray-900 !px-4 !py-2 !my-2">
-      <h2 className="font-bold">Materials</h2>
+      <h2 className="font-bold">Products</h2>
       {threwError && <Toast type="error" durationMs={5000} message={error} />}
       {loading ? (
         <Loader />
