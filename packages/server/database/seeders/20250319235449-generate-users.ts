@@ -10,7 +10,7 @@ import {
 module.exports = {
   async up(queryInterface) {
     const queryPayload = Array.from(
-      { length: faker.number.int({ max: 50 }) },
+      { length: faker.number.int({ min: 25, max: 50 }) },
       (_, i) => {
         const updated_at = faker.date.past({ years: 1 });
 
@@ -28,9 +28,9 @@ module.exports = {
 
         if (i === 0) {
           return {
+            ...userData,
             email: 'admin@admin.com',
             password_hash: hashPassword('STRONG@#$%asf,3.'),
-            ...userData,
           };
         }
 
