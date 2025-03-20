@@ -5,6 +5,7 @@ import {
   generateRomanianPhoneNumber,
   hashPassword,
 } from '../../src/core/utils';
+import { USER_CONSTANTS } from '@drx-it-contest-6/core';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -29,8 +30,8 @@ module.exports = {
         if (i === 0) {
           return {
             ...userData,
-            email: 'admin@admin.com',
-            password_hash: hashPassword('STRONG@#$%asf,3.'),
+            email: USER_CONSTANTS.adminUser.email,
+            password_hash: USER_CONSTANTS.adminUser.passwordHash,
           };
         }
 
