@@ -14,6 +14,7 @@ import {
   MaterialsModule,
   BomsModule,
   PaginationModule,
+  DocumentsModule,
 } from './modules';
 
 @Module({
@@ -29,6 +30,7 @@ import {
       inject: [ConfigService],
     }),
     PaginationModule,
+    DocumentsModule,
     UsersModule,
     RolesModule,
     StagesModule,
