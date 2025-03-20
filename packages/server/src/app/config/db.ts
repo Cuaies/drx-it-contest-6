@@ -8,6 +8,7 @@ export const dbConfiguration = () => ({
     password: process.env.POSTGRESQL_PASSWORD,
     autoLoadModels: true,
     synchronize: process.env.SYNCHRONIZE ?? false,
+    logging: false,
     define: {
       underscored: true,
     },
