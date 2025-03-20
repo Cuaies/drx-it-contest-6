@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   authConfiguration,
@@ -16,6 +16,7 @@ import {
   PaginationModule,
   DocumentsModule,
 } from './modules';
+import { LoggerMiddleware } from '../core/middlewares';
 
 @Module({
   imports: [
@@ -39,5 +40,8 @@ import {
     BomsModule,
   ],
 })
-// skipcq: JS-0327
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
