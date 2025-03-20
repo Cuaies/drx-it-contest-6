@@ -1,8 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
 import { DocumentsService } from './documents.service';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Documents.Base)
 export class DocumentsController {
   constructor(private readonly documentsService: DocumentsService) {}

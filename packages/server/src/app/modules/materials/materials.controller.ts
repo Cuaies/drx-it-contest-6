@@ -8,6 +8,7 @@ import {
   Res,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { Routes } from '../../../core/constants';
@@ -15,10 +16,12 @@ import { Params } from '../../../ts/enums';
 import { getMaterialCreateDto, getPaginationDto } from '@drx-it-contest-6/core';
 import { Response } from 'express';
 import { JwtAtGuard } from '../../../core/guards';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 export class MaterialCreateDto extends getMaterialCreateDto() {}
 export class PaginationDto extends getPaginationDto() {}
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Materials.Base)
 export class MaterialsController {
   constructor(private readonly materialsService: MaterialsService) {}

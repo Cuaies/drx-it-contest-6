@@ -17,6 +17,7 @@ import {
   DocumentsModule,
 } from './modules';
 import { LoggerMiddleware } from '../core/middlewares';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -29,6 +30,11 @@ import { LoggerMiddleware } from '../core/middlewares';
         ...configService.get('db'),
       }),
       inject: [ConfigService],
+    }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 1000 * 60 * 1,
+      max: 10000,
     }),
     PaginationModule,
     DocumentsModule,
