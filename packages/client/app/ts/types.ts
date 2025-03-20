@@ -13,3 +13,9 @@ export type Column = {
 };
 
 export type RenderRowType = (item: Record<string, unknown>) => ReactNode;
+
+export type ToastNotificationProps = {
+  message: string;
+  durationMs: number;
+  type: "error" | "info";
+};

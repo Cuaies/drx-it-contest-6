@@ -6,7 +6,7 @@ export const Navbar = () => {
   const { user } = useProvideAuth();
 
   return (
-    <div className="flex items-center justify-between !px-4 !py-2 bg-white rounded-xl !m-2 shadow-xs bg-white text-black dark:text-white dark:bg-gray-900">
+    <div className="flex items-center justify-between !px-4 !py-2 bg-white rounded-xl shadow-xs bg-white text-black dark:text-white dark:bg-gray-900">
       <div className=""></div>
       <div className="flex items-center justify-center">
         <div className="flex items-center justify-center !mx-4">
