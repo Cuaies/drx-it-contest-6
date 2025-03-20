@@ -76,7 +76,7 @@ const MENU_DATA: MenuSectionSpecification[] = [
 
 export const Menu = () => {
   return (
-    <div className="!mt-6 !mx-4">
+    <div className="!mt-6 !mx-4 shadow-xs">
       {MENU_DATA.map((section) => {
         return (
           <div className="fles flex-col gap-2" key={section.title}>
