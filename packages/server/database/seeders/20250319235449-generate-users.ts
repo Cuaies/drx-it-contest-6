@@ -7,6 +7,7 @@ import {
 } from '../../src/core/utils';
 import { USER_CONSTANTS } from '@drx-it-contest-6/core';
 
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface) {
