@@ -1,19 +1,20 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Input, type InputProps } from "../input";
 import "./register.scss";
+import { useProvideAuth } from "../../../hooks";
 
 enum FormFields {
-  FullName = "fullName",
+  Name = "name",
   Email = "email",
   PhoneNumber = "phoneNumber",
   Password = "password",
-  PasswordConfirmation = "passwordConfirmation",
+  ConfirmPassword = "confirmPassword",
 }
 
 const FORM_DATA: { [key in FormFields]: InputProps } = {
-  [FormFields.FullName]: {
+  [FormFields.Name]: {
     label: "Full Name",
-    id: FormFields.Email,
+    id: FormFields.Name,
     required: true,
   },
   [FormFields.Email]: {
@@ -25,7 +26,7 @@ const FORM_DATA: { [key in FormFields]: InputProps } = {
   [FormFields.PhoneNumber]: {
     label: "Phone Number",
     type: "tel",
-    id: FormFields.Email,
+    id: FormFields.PhoneNumber,
     required: true,
   },
   [FormFields.Password]: {
@@ -34,18 +35,19 @@ const FORM_DATA: { [key in FormFields]: InputProps } = {
     id: FormFields.Password,
     required: true,
   },
-  [FormFields.PasswordConfirmation]: {
+  [FormFields.ConfirmPassword]: {
     label: "Confirm Password",
     type: "password",
-    id: FormFields.PasswordConfirmation,
+    id: FormFields.ConfirmPassword,
     required: true,
   },
 };
 
 export const RegisterForm = () => {
+  const auth = useProvideAuth();
   const methods = useForm();
 
-  const onSubmit = methods.handleSubmit((data: any) => {});
+  const onSubmit = methods.handleSubmit((data: any) => auth.register(data));
 
   return (
     <div>
@@ -56,11 +58,11 @@ export const RegisterForm = () => {
           className="form-container"
         >
           <div className="flex items-center justify-center gap-5 grid">
-            <Input {...FORM_DATA[FormFields.FullName]} />
+            <Input {...FORM_DATA[FormFields.Name]} />
             <Input {...FORM_DATA[FormFields.Email]} />
             <Input {...FORM_DATA[FormFields.PhoneNumber]} />
             <Input {...FORM_DATA[FormFields.Password]} />
-            <Input {...FORM_DATA[FormFields.PasswordConfirmation]} />
+            <Input {...FORM_DATA[FormFields.ConfirmPassword]} />
             <span className="flex justify-center">
               Already a member?&nbsp;<a href="/login">Login</a>
             </span>

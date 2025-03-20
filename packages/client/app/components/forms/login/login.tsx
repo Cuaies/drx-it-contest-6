@@ -1,6 +1,7 @@
 import { Input, type InputProps } from "../input";
 import { FormProvider, useForm } from "react-hook-form";
 import "./login.scss";
+import { useProvideAuth } from "../../../hooks";
 
 enum FormFields {
   Email = "email",
@@ -23,9 +24,10 @@ const FORM_DATA: { [key in FormFields]: InputProps } = {
 };
 
 export const LoginForm = () => {
+  const auth = useProvideAuth();
   const methods = useForm();
 
-  const onSubmit = methods.handleSubmit((data) => {});
+  const onSubmit = methods.handleSubmit((data: any) => auth.login(data));
 
   return (
     <FormProvider {...methods}>
