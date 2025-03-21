@@ -1,0 +1,19 @@
+.toast {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s,
+    visibility 0s 0.5s;
+
+  &.error {
+    background-color: #fc2a3f;
+  }
+  &.info {
+    background-color: #3dc07b;
+  }
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s;
+  }
+}

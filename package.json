@@ -23,6 +23,7 @@
   },
   "workspaces": [
     "packages/server",
+    "packages/client",
     "packages/core"
   ]
 }
