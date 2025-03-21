@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   authConfiguration,
@@ -13,7 +13,11 @@ import {
   ProductsModule,
   MaterialsModule,
   BomsModule,
+  PaginationModule,
+  DocumentsModule,
 } from './modules';
+import { LoggerMiddleware } from '../core/middlewares';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -27,6 +31,13 @@ import {
       }),
       inject: [ConfigService],
     }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 1000 * 60 * 1,
+      max: 10000,
+    }),
+    PaginationModule,
+    DocumentsModule,
     UsersModule,
     RolesModule,
     StagesModule,
@@ -35,5 +46,8 @@ import {
     BomsModule,
   ],
 })
-// skipcq: JS-0327
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}

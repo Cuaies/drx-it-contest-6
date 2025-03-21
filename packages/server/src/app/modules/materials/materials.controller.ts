@@ -6,35 +6,46 @@ import {
   Param,
   Delete,
   Res,
+  Query,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { Routes } from '../../../core/constants';
 import { Params } from '../../../ts/enums';
-import { getMaterialCreateDto } from '@drx-it-contest-6/core';
+import { getMaterialCreateDto, getPaginationDto } from '@drx-it-contest-6/core';
 import { Response } from 'express';
+import { JwtAtGuard } from '../../../core/guards';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 export class MaterialCreateDto extends getMaterialCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
+@UseInterceptors(CacheInterceptor)
 @Controller(Routes.Materials.Base)
 export class MaterialsController {
   constructor(private readonly materialsService: MaterialsService) {}
 
   @Get(Routes.Materials.GET)
-  getMaterials() {
-    return this.materialsService.getMaterials();
+  @UseGuards(JwtAtGuard)
+  getMaterials(@Query() paginationDto: PaginationDto) {
+    return this.materialsService.getMaterials(paginationDto);
   }
 
   @Post(Routes.Materials.POST)
+  @UseGuards(JwtAtGuard)
   createMaterial(@Body() materialCreateDto: MaterialCreateDto) {
     return this.materialsService.createMaterial(materialCreateDto);
   }
 
   @Get(Routes.Materials.Material.GET)
+  @UseGuards(JwtAtGuard)
   getMaterial(@Param(Params.MaterialId) id: string) {
     return this.materialsService.getMaterial(id);
   }
 
   @Delete(Routes.Materials.Material.DELETE)
+  @UseGuards(JwtAtGuard)
   deleteMaterial(
     @Res({ passthrough: true }) res: Response,
     @Param(Params.MaterialId) id: string,

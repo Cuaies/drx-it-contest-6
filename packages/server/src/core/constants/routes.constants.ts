@@ -3,6 +3,7 @@ import { Params } from '../../ts/enums';
 export const Routes = {
   Users: {
     Base: '/users',
+    GET: '',
     Register: '/register',
     Login: '/login',
     Logout: '/logout',
@@ -56,6 +57,15 @@ export const Routes = {
         GET: `:${Params.BomId}/materials`,
         POST: `:${Params.BomId}/materials`,
       },
+    },
+  },
+  Documents: {
+    Base: '/documents',
+    Products: {
+      ProductReport: `/products/:${Params.ProductId}/report`,
+    },
+    BOMs: {
+      BOM: `/boms/:${Params.BomId}`,
     },
   },
 } as const;

@@ -1,13 +1,13 @@
 import {
   getCreateUserRoleDto,
   getLoginDto,
+  getPaginationDto,
   getRegisterDto,
 } from '@drx-it-contest-6/core';
 import {
   BadRequestException,
   ConflictException,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { hashPassword } from '../../../core/utils/hash';
 import { compare } from 'bcrypt';
@@ -23,10 +23,12 @@ import { User } from './models';
 import { UserRole } from '../../../core/relationships';
 import { Role } from '../roles/models';
 import { ErrorNamesEnums } from '../../../ts/enums';
+import { PaginationService } from '../pagination/pagination.service';
 
 export class RegisterDto extends getRegisterDto() {}
 export class LoginDto extends getLoginDto() {}
 export class CreateUserRoleDto extends getCreateUserRoleDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Injectable()
 export class UsersService {
@@ -39,6 +41,7 @@ export class UsersService {
     private roleModel: typeof Role,
     @InjectModel(UserRole)
     private userRoleModel: typeof UserRole,
+    private paginationService: PaginationService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -106,18 +109,26 @@ export class UsersService {
     response.clearCookie(JWT_AT_COOKIE);
   }
 
-  async getUserRoles(userId: number) {
-    const roles = await this.userRoleModel.findAndCountAll({
-      where: { userId },
-      include: [Role],
-      attributes: ['createdAt', 'deletedAt'],
-    });
+  getUsers(paginationDto: PaginationDto) {
+    return this.paginationService.paginate(
+      paginationDto,
+      this.userModel,
+      {},
+      { include: [Role] },
+    );
+  }
 
-    if (!roles) {
-      throw new NotFoundException();
-    }
-
-    return roles;
+  getUserRoles(paginationDto: PaginationDto, userId: number) {
+    return this.paginationService.paginate(
+      paginationDto,
+      this.userRoleModel,
+      {
+        userId,
+      },
+      {
+        include: [Role],
+      },
+    );
   }
 
   async setUserRole(userId: number, createUserRoleDto: CreateUserRoleDto) {

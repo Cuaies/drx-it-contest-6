@@ -2,11 +2,13 @@ name: Server Tests
 
 on:
   push:
-    branches:
-      - master
+    paths:
+      - "./packages/server/**"
+      - "./packages/core/**"
   pull_request:
-    branches:
-      - master
+    paths:
+      - "./packages/server/**"
+      - "./packages/core/**"
 
 jobs:
   build-core:

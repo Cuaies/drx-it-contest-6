@@ -3,19 +3,17 @@
 import { RolesEnum } from '../../src/ts/enums';
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     const queryPayload = Object.values(RolesEnum).map((role) => {
       return {
-        roleName: role,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        role_name: role,
       };
     });
 
-    await queryInterface.bulkInsert('Roles', queryPayload);
+    await queryInterface.bulkInsert('roles', queryPayload);
   },
 
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Roles', null, {});
+  down: async (queryInterface) => {
+    await queryInterface.bulkDelete('roles', null, {});
   },
 };

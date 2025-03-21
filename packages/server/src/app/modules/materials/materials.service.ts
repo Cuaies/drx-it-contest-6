@@ -1,20 +1,23 @@
 import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { Material } from './models/material.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { getMaterialCreateDto } from '@drx-it-contest-6/core';
+import { getMaterialCreateDto, getPaginationDto } from '@drx-it-contest-6/core';
 import { Response } from 'express';
+import { PaginationService } from '../pagination/pagination.service';
 
 export class MaterialCreateDto extends getMaterialCreateDto() {}
+export class PaginationDto extends getPaginationDto() {}
 
 @Injectable()
 export class MaterialsService {
   constructor(
     @InjectModel(Material)
     private materialModel: typeof Material,
+    private paginationService: PaginationService,
   ) {}
 
-  getMaterials() {
-    return this.materialModel.findAll();
+  getMaterials(paginationDto: PaginationDto) {
+    return this.paginationService.paginate(paginationDto, this.materialModel);
   }
 
   async createMaterial(materialCreateDto: MaterialCreateDto) {
