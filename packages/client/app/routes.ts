@@ -14,5 +14,6 @@ export default [
     route("materials", "routes/materials.tsx"),
     route("products", "routes/products.tsx"),
     route("boms", "routes/boms.tsx"),
+    route("stages", "routes/stages.tsx"),
   ]),
 ] satisfies RouteConfig;
