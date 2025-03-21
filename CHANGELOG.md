@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0](https://github.com/Cuaies/drx-it-contest-6/compare/v1.0.0...v1.1.0) (2025-03-21)
+
+
+### Features
+
+* add caching ([#21](https://github.com/Cuaies/drx-it-contest-6/issues/21)) ([9443b2b](https://github.com/Cuaies/drx-it-contest-6/commit/9443b2b810f9a854ef5a9caa12ee129b48c4be59))
+* add pdf generator support ([#15](https://github.com/Cuaies/drx-it-contest-6/issues/15)) ([1acd91d](https://github.com/Cuaies/drx-it-contest-6/commit/1acd91d9885ba8da251e91f0eb89e5796391a7d2))
+* **client:** create base client functionality ([#9](https://github.com/Cuaies/drx-it-contest-6/issues/9)) ([5bfde9a](https://github.com/Cuaies/drx-it-contest-6/commit/5bfde9af2c57f3c3c327e08a1a815bdc56b58427))
+* create request logger ([#20](https://github.com/Cuaies/drx-it-contest-6/issues/20)) ([c8804b7](https://github.com/Cuaies/drx-it-contest-6/commit/c8804b78d255a59af2cf6b4385036ad52f38783f))
+
 ## 1.0.0 (2025-03-16)
 
 
