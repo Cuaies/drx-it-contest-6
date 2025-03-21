@@ -15,11 +15,9 @@ export const Navbar = () => {
         <div className="flex items-center justify-center gap-2 text-xl bold">
           {user && (
             <div className="flex flex-col">
-              <span className="font-semibold text-[16px]">
-                PLACEHOLDER NAME
-              </span>
+              <span className="font-semibold text-[16px]">{user.name}</span>
               <span className="text-[12px] text-gray-500 text-right">
-                PLACEHOLDER ROLE
+                {user.roleName}
               </span>
             </div>
           )}

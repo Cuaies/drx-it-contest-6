@@ -1,11 +1,26 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 // TODO: fix hardcoded urls
 export const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState<any>(null);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    let storedUser;
+
+    if (typeof localStorage.getItem("user") === "string") {
+      storedUser = JSON.parse(localStorage.getItem("user") as string);
+    }
+
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const register = (bodyDto: any) => {
     axios
@@ -15,7 +30,12 @@ export const useProvideAuth = () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       })
-      .then((res) => res.status === 200 && setUser(res.data.user))
+      .then((res) => {
+        if (res.status === 201) {
+          setUser(res.data.user);
+          navigate("/");
+        }
+      })
       .catch((e) => setErrors(e));
   };
 
@@ -27,7 +47,25 @@ export const useProvideAuth = () => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        const { id, name } = res.data;
+        axios
+          .get(`http://localhost:3000/users/${id}/roles`, {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          })
+          .then((res) => {
+            const userRoles = res.data.rows;
+            const { roleName } = userRoles[userRoles.length - 1].role;
+            localStorage.setItem(
+              "user",
+              JSON.stringify({ id, name, roleName }),
+            );
+            setUser({ id, name, roleName });
+          });
+      })
       .catch((e) => setErrors(e));
   };
 
@@ -35,7 +73,12 @@ export const useProvideAuth = () => {
     return fetch("http://localhost:3000/users/logout", {
       method: "POST",
     })
-      .then((res) => res.status === 200 && setUser(null))
+      .then((res) => {
+        if (res.status === 200) {
+          setUser(null);
+          localStorage.removeItem("user");
+        }
+      })
       .catch((e) => setErrors(e));
   };
 
