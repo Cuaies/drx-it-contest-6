@@ -1,5 +1,4 @@
-import { RegisterForm } from "../../components/forms";
-import "./register.scss";
+import { RegisterForm } from "../components";
 
 export const RegisterPage = () => {
   return (

@@ -5,6 +5,6 @@ export function meta({}: Route.MetaArgs) {
   return [{ title: "Stages" }, { name: "description", content: "Get stages" }];
 }
 
-export default function Home() {
+export default function Stages() {
   return <StagesPage />;
 }

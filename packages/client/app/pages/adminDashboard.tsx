@@ -64,7 +64,7 @@ export const AdminDashboardPage = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mt-2 min-h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 !mt-2 min-h-screen">
       {/* Row 1 */}
       <div className="col-span-2 h-82 shadow-md rounded-2xl bg-white text-black dark:text-white dark:bg-gray-900 flex flex-col justify-around items-center">
         <span className="text-center text-md font-bold mt-2">

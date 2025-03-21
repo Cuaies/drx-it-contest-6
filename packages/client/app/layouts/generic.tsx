@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
-import { Menu } from "../components/menu";
 import { GrCode } from "react-icons/gr";
-import { Navbar } from "../components/navbar";
+import { Menu, Navbar } from "../components";
 
 const GenericLayout = () => {
   return (

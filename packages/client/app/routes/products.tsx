@@ -1,6 +1,5 @@
-import { MaterialsPage } from "../pages";
-import { ProductsPage } from "../pages/products";
-import type { Route } from "./+types/home";
+import { ProductsPage } from "../pages";
+import type { Route } from "./+types/products";
 
 export function meta({}: Route.MetaArgs) {
   return [

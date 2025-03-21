@@ -1,5 +1,5 @@
-import { AuthContext } from "../../contexts";
-import { useProvideAuth } from "../../hooks";
+import { AuthContext } from "../contexts";
+import { useProvideAuth } from "../hooks";
 import type { ReactNode } from "react";
 
 interface AuthProviderProps {

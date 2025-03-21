@@ -1,5 +1,4 @@
-import { LoginForm } from "../../components/forms";
-import "./login.scss";
+import { LoginForm } from "../components";
 
 export const LoginPage = () => {
   return (

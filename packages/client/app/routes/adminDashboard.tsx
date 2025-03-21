@@ -1,4 +1,4 @@
-import { AdminDashboardPage } from "../pages/adminDashboard";
+import { AdminDashboardPage } from "../pages";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {

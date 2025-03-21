@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Column } from "../ts/types";
-import { Toast } from "../components/toast";
-import { Loader, renderActionRow, Table } from "../components";
-import { CreateProductForm } from "../components/forms/products/products";
+import {
+  CreateProductForm,
+  Loader,
+  renderActionRow,
+  Table,
+  Toast,
+} from "../components";
 
 let columns: Column[] = [];
 

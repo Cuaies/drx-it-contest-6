@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Loader, renderActionRow, Table } from "../../components";
+import { Loader, renderActionRow, Table, Toast } from "../components";
 import axios from "axios";
-import { Toast } from "../../components/toast";
-import type { Column } from "../../ts/types";
+import type { Column } from "../ts/types";
 
 let columns: Column[] = [];
 
