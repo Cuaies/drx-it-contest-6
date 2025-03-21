@@ -13,5 +13,6 @@ export default [
     index("routes/adminDashboard.tsx"),
     route("materials", "routes/materials.tsx"),
     route("products", "routes/products.tsx"),
+    route("boms", "routes/boms.tsx"),
   ]),
 ] satisfies RouteConfig;

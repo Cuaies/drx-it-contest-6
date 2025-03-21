@@ -49,7 +49,7 @@ const MENU_DATA: MenuSectionSpecification[] = [
       },
       {
         icon: <TbInvoice />,
-        label: "Bill of Materials",
+        label: "Bills of Materials",
         href: "/boms",
         visible: ["admin"],
       },
