@@ -34,7 +34,7 @@ export const MaterialsPage = () => {
   }, []);
 
   return (
-    <div className="h-screen bg-white rounded-xl shadow-xs bg-white text-black dark:text-white dark:bg-gray-900 !px-4 !py-2 !my-2">
+    <div className="min-h-screen rounded-xl shadow-xs bg-white text-black dark:text-white dark:bg-gray-900 !px-4 !py-2 !my-2">
       <h2 className="font-bold">Materials</h2>
       {threwError && <Toast type="error" durationMs={5000} message={error} />}
       {loading ? (

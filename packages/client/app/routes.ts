@@ -10,7 +10,7 @@ export default [
     route("register", "routes/register.tsx"),
     route("login", "routes/login.tsx"),
 
-    index("routes/home.tsx"),
+    index("routes/adminDashboard.tsx"),
     route("materials", "routes/materials.tsx"),
     route("products", "routes/products.tsx"),
   ]),
