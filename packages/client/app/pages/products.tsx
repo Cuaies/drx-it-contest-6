@@ -3,6 +3,7 @@ import axios from "axios";
 import type { Column } from "../ts/types";
 import { Toast } from "../components/toast";
 import { Loader, renderActionRow, Table } from "../components";
+import { CreateProductForm } from "../components/forms/products/products";
 
 let columns: Column[] = [];
 
@@ -36,6 +37,7 @@ export const ProductsPage = () => {
   return (
     <div className="min-h-screen rounded-xl shadow-xs bg-white text-black dark:text-white dark:bg-gray-900 !px-4 !py-2 !my-2">
       <h2 className="font-bold">Products</h2>
+      <CreateProductForm />
       {threwError && <Toast type="error" durationMs={5000} message={error} />}
       {loading ? (
         <Loader />
